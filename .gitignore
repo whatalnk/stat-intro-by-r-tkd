@@ -1,2 +1,4 @@
 samplecode/
-
+.Rhistory
+.Rproj.user
+**/.ipynb_checkpoints
