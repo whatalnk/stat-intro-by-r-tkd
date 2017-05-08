@@ -3,3 +3,4 @@ samplecode/
 .Rproj.user
 **/.ipynb_checkpoints
 contrib/
+data/
