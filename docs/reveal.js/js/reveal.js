@@ -451,7 +451,7 @@
 		setupPostMessage();
 
 		// Prevent the slides from being scrolled out of view
-		setupScrollPrevention();
+		// setupScrollPrevention();
 
 		// Resets all vertical slides so that only the first is visible
 		resetVerticalSlides();
