@@ -1,64 +1,10 @@
-
 <!DOCTYPE html>
 <html>
-<head>
-
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="chrome=1" />
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-<title>Chap03 slides</title>
+<head><meta charset="utf-8" />
+<title>Chap03</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<!-- General and theme style sheets -->
-<link rel="stylesheet" href="reveal.js/css/reveal.css">
-<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
-
-<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-<script>
-if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = 'reveal.js/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-}
-
-</script>
-
-<!--[if lt IE 9]>
-<script src="reveal.js/lib/js/html5shiv.js"></script>
-<![endif]-->
-
-<!-- Loading the mathjax macro -->
-<!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration -->
-
-<!-- Get Font-awesome from cdn -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
 
 <style type="text/css">
     /*!
@@ -11745,86 +11691,61 @@ ul.typeahead-list > li > a {
 
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
-.reveal {
-  font-size: 160%;
-  overflow-y: scroll;
+body {
+  overflow: visible;
+  padding: 8px;
 }
-.reveal pre {
-  width: inherit;
-  padding: 0.4em;
-  margin: 0px;
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
 }
-.reveal pre code {
-  padding: 0px;
-}
-.reveal section img {
-  border: 0px solid black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-}
-.reveal i {
-  font-style: normal;
-  font-family: FontAwesome;
-  font-size: 2em;
-}
-.reveal .slides {
-  text-align: left;
-}
-.reveal.fade {
-  opacity: 1;
-}
-.reveal .progress {
-  position: static;
-}
-div.input_area {
-  padding: 0.06em;
-}
-div.code_cell {
-  background-color: transparent;
-}
-div.prompt {
-  width: 11ex;
-  padding: 0.4em;
-  margin: 0px;
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-  text-align: right;
-}
-div.output_area pre {
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-}
-div.output_prompt {
-  /* 5px right shift to account for margin in parent container */
-  margin: 5px 5px 0 0;
-}
-div.text_cell.rendered .rendered_html {
-  /* The H1 height seems miscalculated, we are just hidding the scrollbar */
-  overflow-y: hidden;
-}
-a.anchor-link {
-  /* There is still an anchor, we are only hidding it */
-  display: none;
-}
-.rendered_html p {
-  text-align: inherit;
+
+@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
 }
 </style>
 
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
 <link rel="stylesheet" href="custom.css">
 
-</head>
-
-
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
 <body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
 
-
-<div class="reveal">
-<div class="slides">
-<section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11833,7 +11754,7 @@ a.anchor-link {
 <h3 id="3&#31456;-&#22823;&#25968;&#12398;&#27861;&#21063;&#65292;&#27491;&#35215;&#20998;&#24067;&#65292;&#20013;&#24515;&#26997;&#38480;&#23450;&#29702;">3&#31456; &#22823;&#25968;&#12398;&#27861;&#21063;&#65292;&#27491;&#35215;&#20998;&#24067;&#65292;&#20013;&#24515;&#26997;&#38480;&#23450;&#29702;<a class="anchor-link" href="#3&#31456;-&#22823;&#25968;&#12398;&#27861;&#21063;&#65292;&#27491;&#35215;&#20998;&#24067;&#65292;&#20013;&#24515;&#26997;&#38480;&#23450;&#29702;">&#182;</a></h3>
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11846,7 +11767,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11877,7 +11798,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11887,7 +11808,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
@@ -11948,7 +11869,33 @@ Warning message:
 </div>
 </div>
 
-</div></div></section></section><section><section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">search</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kn">detach</span><span class="p">(</span>package<span class="o">:</span>readr<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11957,7 +11904,7 @@ Warning message:
 <h2 id="3.1-&#22823;&#25968;&#12398;&#27861;&#21063;:-&#12505;&#12523;&#12492;&#12540;&#12452;&#35430;&#34892;&#12392;&#30495;&#12398;&#20516;&#12408;&#12398;&#21454;&#26463;">3.1 &#22823;&#25968;&#12398;&#27861;&#21063;: &#12505;&#12523;&#12492;&#12540;&#12452;&#35430;&#34892;&#12392;&#30495;&#12398;&#20516;&#12408;&#12398;&#21454;&#26463;<a class="anchor-link" href="#3.1-&#22823;&#25968;&#12398;&#27861;&#21063;:-&#12505;&#12523;&#12492;&#12540;&#12452;&#35430;&#34892;&#12392;&#30495;&#12398;&#20516;&#12408;&#12398;&#21454;&#26463;">&#182;</a></h2>
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11983,8 +11930,7 @@ Warning message:
 
 </div>
 </div>
-</div><aside class="notes">
-
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11995,7 +11941,6 @@ Warning message:
 </div>
 </div>
 </div>
-</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12015,7 +11960,7 @@ y = \frac{r}{10}
 $$
 </div>
 </div>
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12038,7 +11983,7 @@ $$
 $$
 </div>
 </div>
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12058,7 +12003,7 @@ E(r / n) = p = 0.5
 $$
 </div>
 </div>
-</div></section><section>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
@@ -12105,7 +12050,7 @@ $$
 </div>
 </div>
 
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12118,7 +12063,7 @@ $$
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
@@ -12163,7 +12108,20 @@ d
 </div>
 </div>
 
-</div></div></section><section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">4</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12173,7 +12131,7 @@ d
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
@@ -12634,7 +12592,7 @@ QmCC"
 </div>
 </div>
 
-</div></div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12651,7 +12609,7 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 
 </div>
 </div>
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12661,7 +12619,7 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
@@ -12709,7 +12667,7 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 </div>
 </div>
 
-</div></div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12719,7 +12677,7 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
@@ -12769,7 +12727,7 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 </div>
 </div>
 
-</div></div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12778,7 +12736,7 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 <h2 id="3.2-&#27491;&#35215;&#20998;&#24067;">3.2 &#27491;&#35215;&#20998;&#24067;<a class="anchor-link" href="#3.2-&#27491;&#35215;&#20998;&#24067;">&#182;</a></h2>
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12791,7 +12749,21 @@ $$<p>標本サイズを増やしていって，0.5 近くになる確率を求�
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kt">data_frame</span><span class="p">(</span>ID<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">99</span><span class="p">),</span> dw <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">11</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">23</span><span class="p">,</span> <span class="m">23</span><span class="p">,</span> <span class="m">24</span><span class="p">,</span> <span class="m">24</span><span class="p">,</span> <span class="m">24</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="m">36</span><span class="p">,</span> <span class="m">36</span><span class="p">,</span> <span class="m">36</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">38</span><span class="p">,</span> <span class="m">38</span><span class="p">,</span> <span class="m">39</span><span class="p">,</span> <span class="m">39</span><span class="p">,</span> <span class="m">39</span><span class="p">,</span> <span class="m">40</span><span class="p">,</span> <span class="m">40</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">42</span><span class="p">,</span> <span class="m">42</span><span class="p">,</span> <span class="m">42</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">44</span><span class="p">,</span> <span class="m">45</span><span class="p">,</span> <span class="m">46</span><span class="p">,</span> <span class="m">47</span><span class="p">,</span> <span class="m">48</span><span class="p">,</span> <span class="m">49</span><span class="p">,</span> <span class="m">53</span><span class="p">,</span> <span class="m">57</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+    write_csv<span class="p">(</span>path<span class="o">=</span><span class="s">&quot;../data/table3-2.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
@@ -12842,7 +12814,60 @@ cols(
 </div>
 </div>
 
-</div></div></section><section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kt">data_frame</span><span class="p">(</span>ID<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">99</span><span class="p">),</span> dw <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">11</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">23</span><span class="p">,</span> <span class="m">23</span><span class="p">,</span> <span class="m">24</span><span class="p">,</span> <span class="m">24</span><span class="p">,</span> <span class="m">24</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">26</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">29</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="m">36</span><span class="p">,</span> <span class="m">36</span><span class="p">,</span> <span class="m">36</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">38</span><span class="p">,</span> <span class="m">38</span><span class="p">,</span> <span class="m">39</span><span class="p">,</span> <span class="m">39</span><span class="p">,</span> <span class="m">39</span><span class="p">,</span> <span class="m">40</span><span class="p">,</span> <span class="m">40</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">42</span><span class="p">,</span> <span class="m">42</span><span class="p">,</span> <span class="m">42</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">44</span><span class="p">,</span> <span class="m">45</span><span class="p">,</span> <span class="m">46</span><span class="p">,</span> <span class="m">47</span><span class="p">,</span> <span class="m">48</span><span class="p">,</span> <span class="m">49</span><span class="p">,</span> <span class="m">53</span><span class="p">,</span> <span class="m">57</span><span class="p">))</span> <span class="o">%&gt;%</span> 
+    openxlsx<span class="o">::</span>write.xlsx<span class="p">(</span>file <span class="o">=</span> <span class="s">&quot;../data/table3-2.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>readxl<span class="o">::</span>read_excel<span class="p">(</span>path<span class="o">=</span><span class="s">&quot;../data/table3-2.xlsx&quot;</span><span class="p">,</span> sheet <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<thead><tr><th scope=col>ID</th><th scope=col>dw</th></tr></thead>
+<tbody>
+	<tr><td>0 </td><td> 3</td></tr>
+	<tr><td>1 </td><td> 7</td></tr>
+	<tr><td>2 </td><td>11</td></tr>
+	<tr><td>3 </td><td>12</td></tr>
+	<tr><td>4 </td><td>13</td></tr>
+	<tr><td>5 </td><td>14</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
@@ -12880,7 +12905,20 @@ cols(
 </div>
 </div>
 
-</div></section><section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">4</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
@@ -13115,7 +13153,7 @@ AhoAlGI3OwBQioAGAKUIaABQioAGAKUIaABQioAGAKUIaABQioAGAKUIaABQioAGAKUIaABQ
 </div>
 </div>
 
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13129,7 +13167,20 @@ $$<p>ここで，$\mu$: 平均，$\sigma$: 標準偏差</p>
 
 </div>
 </div>
-</div></section><section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">6</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13143,7 +13194,7 @@ $$<p>ここで，$\mu$: 平均，$\sigma$: 標準偏差</p>
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
@@ -13692,7 +13743,7 @@ QmCC"
 </div>
 </div>
 
-</div></div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13714,7 +13765,7 @@ $$
 $$
 </div>
 </div>
-</div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13725,7 +13776,7 @@ $$
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
@@ -13755,7 +13806,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> sigma<span class="p">,<
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13765,7 +13816,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> sigma<span class="p">,<
 
 </div>
 </div>
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
@@ -13795,7 +13846,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> sigma<span class="p">,<
 </div>
 </div>
 
-</div></div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13806,7 +13857,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> sigma<span class="p">,<
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
@@ -13836,7 +13887,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13846,7 +13897,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 
 </div>
 </div>
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
@@ -13876,7 +13927,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 </div>
 </div>
 
-</div></div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13887,7 +13938,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
@@ -13907,7 +13958,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 </div>
 </div>
 
-</div></section><section>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[22]:</div>
@@ -13927,7 +13978,20 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 </div>
 </div>
 
-</div></section><section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">6</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13938,7 +14002,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[24]:</div>
@@ -13951,7 +14015,7 @@ pnorm<span class="p">(</span>mu <span class="o">+</span> <span class="m">2</span
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[25]:</div>
@@ -14332,7 +14396,7 @@ AwAAAFSHgAMAAABU9/8BAUq3Nv3d8ycAAAAASUVORK5CYII="
 </div>
 </div>
 
-</div></div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14342,7 +14406,7 @@ AwAAAFSHgAMAAABU9/8BAUq3Nv3d8ycAAAAASUVORK5CYII="
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[27]:</div>
@@ -14355,7 +14419,7 @@ AwAAAFSHgAMAAABU9/8BAUq3Nv3d8ycAAAAASUVORK5CYII="
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[28]:</div>
@@ -14727,7 +14791,7 @@ ukPCAQAAALpDwgEAAAC6+/8ApvH3XGGCJdwAAAAASUVORK5CYII="
 </div>
 </div>
 
-</div></div></section><section>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14737,7 +14801,7 @@ ukPCAQAAALpDwgEAAAC6+/8ApvH3XGGCJdwAAAAASUVORK5CYII="
 
 </div>
 </div>
-</div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[29]:</div>
@@ -14750,7 +14814,7 @@ ukPCAQAAALpDwgEAAAC6+/8ApvH3XGGCJdwAAAAASUVORK5CYII="
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[30]:</div>
@@ -15145,63 +15209,348 @@ ALhDwgEAAADc/T9OVMe3qnO+kwAAAABJRU5ErkJggg=="
 </div>
 </div>
 
-</div></div></section></section>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">3</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Q-Q プロットを書く</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>f.plt.qq <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>s<span class="p">){</span>
+    n <span class="o">&lt;-</span> <span class="kp">length</span><span class="p">(</span>s<span class="p">)</span>
+    y <span class="o">&lt;-</span> <span class="kp">sort</span><span class="p">(</span>s<span class="p">)</span>
+    x <span class="o">&lt;-</span> qnorm<span class="p">(</span>ppoints<span class="p">(</span>n<span class="p">))</span>
+    ggplot<span class="p">(</span><span class="kt">data_frame</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">),</span> aes<span class="p">(</span>x<span class="p">,</span> y<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">()</span> <span class="o">+</span> 
+        xlim<span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">5</span><span class="p">)</span>
+<span class="p">}</span>
+f.plt.qq<span class="p">(</span>mean.d1<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAIAAAD1h/aCAAAABmJLR0QA/wD/AP+gvaeTAAAg
+AElEQVR4nO3de3AbxeEH8N27k3SyZCd2Yju2EztJHVBSSmnUYdqACYVST2CsdkJbw/RBH4NN
+J5Rppo1nWgIhUJjiXzsTZuJObZcWmGkgpQVqDwTTTnmnKUQp7UCShhSwSaTEwYkfsWzLsvX7
+Y4tw/bi9O2lPd9L380dGdtar9Un6em9vb5cmk0kCAGCElO0GAIDzIDgAwDAEBwAYhuAAAMMQ
+HABgGIIDAAxDcACAYQgOADBMyXYDhJiamhoeHtYu4/P5XC7X5OTk6OioiDa43W6PxzMyMiKi
+ckVR/H4/IWR4eHh6elrEUyxatGh0dDSRSIiovLCwUJbl8fHx8fFxEfV7vV5KaSwWE1G5x+Px
+er3JZHJoaEhE/ZIkFRUVDQ0NCZqcuXjxYkJILBaLx+PaJYuLixf6r9wMjmQyOTU1xS1GKSWE
+6Clprg3iKpckKdV4QcFBKZ2enhbUfkqp6INPKRVU+fT0tDWNFxQcrPFpvrg4VQEAwxAcAGAY
+ggMADMtacIRCoWg0OvM7bW1toVAoFAq1tLQs9FN6ygCAaNkJjra2tlnf6e7u7u3t7erq6urq
+mreAzjIAYIEsBEcoFOrp6Zn1zc7OzsbGRva4sbFxbgGdZQDAAlYHRzgcrq+vb29vn/lNds5S
+WVnJvgwGg6yk0TIAYA2r53EEg8FgMDhrdCMSiRBCKioqNH6QW2bXrl3Hjh1jj6uqqriDILIs
+E0IURVm0aJG+thsjSZIkSYIqZ5fiCSFFRUXirvb7fD5BlUuSRAjxeDyKIuQdyF5cca8sIYRS
+Kqh+pqioSE+x6enpPXv27Nu3r7+/v6am5hvf+MbGjRv1/GBBQYGqqto1a/yvfSeARSIR1q3Q
+WebIkSOpDsiaNWtcLpeeZ2Ef73TaqU1nM0wT9MGzoHIi/uALrZwIfnFnVf7aa6+99NJLZ86c
+GRoaGhsbi8ViF1xwwY033vjd7373tddek2WZTUt75JFHbrrppt/85jfc312WZRavC9GeHmbf
+4EidlegsEwwGUzNky8vLJyYmtH/W5XJJkjQ9PT05OZlOOxfCXhjurF5zJElib6x4PC6oU+Dx
+eCYnJwVNS3W73WxypKAp7YqiUErFvbIsUrnvMXMopW63O/XKxmKxW2655fe///3MMuyte//9
+97OPN/uXlX/44Yc/+9nPfutb31qofo/HQwhJJBLa0ZBMJjWSxRbBwT7/0WhU40yEW6apqSn1
+OJFIDA4Oaj9pUVGR2+1OJBKCbidRVVVVVUGVu1wu1k8+f/68uM92LBYT9NkrLi5mqSroRiGf
+zydJkrhX1u/3J5NJQfUnEolDhw49/fTTp0+fPnXq1FtvvTX3zcxe9Hk/+ZIkPfjgg9dff/1C
+9bPgGBsb4wafxrmMLYKDZUEkEmEP2BnHrPMUPWUAnCsWi/3oRz/605/+lGYvdXp6+vjx45lq
+1ULsMnO0vr5+79697PHevXvr6+vNlQFwnKeeemr58uU1NTWPP/54Rs5tCwsL069Em12CY8uW
+LTU1NWxWaE1NzZYtW9j3W1pauru7tcsAOM7g4ODVV19dXl5eWlp68803Z3C4hFJ65ZVXZqq2
+BZ8lJzdk0j/GEY/HuSt3mMPGOLjNMCc1xnH27FlBYxxLliwZHh4WOsYxNjbm6DGOgYEBEz8+
+NDQUCAQyOCpM6UefYkmS/H7/Cy+8sGLFioXKL126lBAyMjLCTStWcl526XEA5IMbb7yxtrY2
+U6khSdLSpUuXL1+e+s6ll176zDPPaKRGpthicBQgH6xevTqznaCNGzf+4he/qKqqeuedd6LR
+6OrVq6uqqjJYvwYEB4AVysrKMjIssHz58v/7v/+Lx+Nr165dtWoV+2ZtbW1tbW36leuH4AAQ
+a2JiYsWKFemnBqW0sbHxrrvuWrJkSUYalg4EB4BYplNDUZSSkpJVq1ZdfPHFn/nMZ6644gq2
+zrAdIDgABCotLTX6I5TSTZs2/fKXv/T5fCKalBG4qgIgxBe/+EWjqUEp/eEPf/jBBx88/fTT
+bPsL20KPAyDzysvL9c+voZRefPHFra2t69evF9qqDEJwAGSYoQsoDz300HXXXSe0PSIgOAAy
+5uTJk5dccon+8m+++WZ5ebm49oiD4ADIjAsuuODcuXM6C1NKT58+nVrJzXEQHAAZYHR+1xtv
+vOHc1CC4qgKQppMnT5aWlhpKjUgkomeBOztDcACYl0gkDA1qEELef/990SvRWgDBAWCe9tL8
+s5SWlp45c0Z7bXGnQHAAmFRWVqa/8I4dOw4fPiyuMRbD4CiAGbIs6x/XeP3111euXCmyOVZD
+cAAYJkmSztSglPb394tuj/VwqgJgzOLFi3WmxuLFi3MyNQh6HACGVFZWau9jxFBKT5w44Xa7
+LWhSViA4APS69tprda7efOrUKdEbUGYXggNAl2PHjr3++ut6Svb39zt6VqgeuRyKABl02WWX
+6Sn2j3/8I+dTg6DHAaCHzikbfX19Xq9XdGPsAD0OAI7y8nI9l1HcbneepAZBcABou+SSS/Ss
+5SXL8smTJy1oj00gOAC06IkDSZJOnTplQWPsI2fHOBSF86uxESxKKbekOZIkiatclmX2QFEU
+QXvHEoOzqk2w/8EvKSnhlqGUmttEdiHsOq6iKEIPvizL2sdH+9lzc9Ppqamp1EcLwBxZlrmh
+TCkVF9zZpf0hys0eRzKZ/OCDD7TLYLd6bXm+W311dbWeA3vkyBHuO80oSZJKSkoGBgYE/VHH
+bvUAQrz55ptjY2PcYoWFhXbYjTErEBwAs1111VXcMpIkvfPOOxY0xp4QHAD/Y9myZdxzBEpp
+IpGwpj32hOAA+Mi6dev03Pwai8UsaIydITgAPnLmzBluGa/XmxvrhqYDwQHwX3puSJEkKVfX
+5jEEwQFACCEVFRV6hjZOnz5tTXtsDsEBQGKxmJ7BTvQ1UhAcAETPEuSCZsc7FIID8p2eu+Yl
+SYpGo9a0xxEQHJDXBgcH9Uwtx9DGLAgOyGsXXHABt8yOHTssaImzIDggf+mZJCrL8q233mpN
+exwEwQH5iztJlFKabyv06ITggDylZ7oXrr8uBMEB+Wj58uXck5Qc3octfQgOyEfcNWwopXm1
++LBRCA7IO3pOUt544w0LWuJcCA7ILytWrOCepCiKUllZaU17HArBAflFz0kKJolyITggj+iZ
+uPHzn//cmsY4GoID8gh34oYkSd/85jetaYyjITggX3DHRLHchn4IDsgLHR0d3JOUUChkTWNy
+AIID8sL27du1C0iS9Otf/9qaxuQABAfkvqqqKm53AycphiA4IPfF43HtAljdyygEB+S48vJy
+bhlM3DDKFkEbDod37tw565s7duwIBoMzvxONRpubm1NfBgKB1tZWK9oHjrV7927uAl9er9ea
+xuQSWwRHMBjs6upKfdnW1tbb2zsrNQghkUgEYQGG3H333doFKKV9fX3WNCaX2CI4ZgqHwz09
+Pe3t7XP/KxKJ1NTUWN8kcCg9Y6K4BdYc241x7N27t76+vqKiYu5/9fX1VVdXW98kcCjumKgs
+yy6Xy5rG5BjKjWQrscGO9vb2eYMjFAoFAoGjR4+yL2ee3RBC7rvvviNHjrDHy5cvv+eee7Sf
+S5ZlSmkymdSzybAJkiRRSgVVTimVZZkQIm7PdEVRpqamBL092MGfnp7Ws8K4CZIkud1u7sGf
+nJw0V7kkSUTwwRdaOSGE++JOT09rLGVkr1OVAwcOLNTdYOPedXV1bIwjGo2GQqGZ2dHb25sK
+jkQiofMCG6VU6KU40df5hNbPskmc1CdQBG5qqKqa5tFz9DuH++JqH0B7BUdPT89CS9FXVFTM
+jAkWLuFwODWGWl9ff9FFF7HHJSUlY2Nj2s/ldrtlWZ6amuJ2aM2RZVlRFO5N3OZIkuTxeAgh
+4+PjgjoFXq93YmJCUI9AVVVKaSKRMPc3n8vv92sXoJSePXuW+yaZl6Io7ATH3I9zUUpVVRVU
+OfnwKlI8HteOhunpaZ/Pt9D/2ig4wuEwIWTuxRSdNm/enHqcSCQGBwe1y8uyzIJjdHTU3DNq
+U1VVkiRBlbtcLhYcsVhM3Gd7fHxc0Aebpfbk5KSg48M9Jv39/aafWlVVl8uVTCYFNV6SJFVV
+Y7GYuD8JhJCJiQnuXzWN4LDR4Ci72rrQ/4bD4bn3IGGZJpiLexesuPOj/GGjI9jX16dxtTUY
+DAYCAdYrIYSEw+FAIDDvaAjkswsvvBC3pVjARqcqvb29dXV1s77Z0tJSV1fX0NBACGltbU11
+OjATDOZ17tw57QKiR3zzhI2CY94gmPXNWZdgAWbSs1sKdmbLCBudqgCkiTvahz2WMgXBATmC
+O+CFPZYyCMEBOYI71XLp0qXWtCQfIDggF3AX3aCUHj582JrG5AMEB+QC7oyv2267zZqW5AkE
+Bzienhlf3MWKwRAEBzhbc3MzZnxZD8EBzvbkk09qF8BCxCIgOMDBVq1axe1uYCFiERAc4GDc
++1PZPcSQcQgOcCrukqKU0hMnTljWnryC4ACn4q7AVFBQYE1L8hCCAxxp2bJl2gUope+9954l
+bclHCA5wJO6SomvXrrWmJfkJwQHOo6e7cejQIWsak58QHOA83O6GoNVAIQXBAQ6DJUXtAIcY
+nGTjxo2YYG4HCA5wktSeWwvBkqLWQHCAY+iZYI4lRa2B4ADH4A55YgdpyyA4wBkqKyu5E8wj
+kYhl7clzCA5wBu5mlEVFRda0BAiCAxxBz4yv48ePW9MYIAgOcATujK/vfe971rQEGAQH2J2e
+Fcx37txpTWOAQXCA3XFXMO/v77emJZCSs8sxcq/MUUrZv4Ku4cmyLK7y1DqaLpeL+7kyTdxk
+KnbwJUniHp/i4mLtAvNWIkmSnsrNSR0WQfWzKfMul4s7aSUdiqKk887JzeCglHLH2Nl71+Vy
+iRuN19OMNPn9fkE1U0p9Pp+4ygkhHo9HezPXnTt3cj88827gxuoXevBFv7iFhYXiKieEqKqq
+qqpGAe1xJSo01bIlkUgMDg5qlykqKnK73fF4fHh4WEQb2AvDbYY5Lpdr0aJFhJCzZ88K6nEs
+WbJkeHiYexHUnOLiYlmWx8bGtOd0lZWVab8/ZVmed6qoz+eTJGlkZCTdhs5HVVW/359MJgcG
+BkTUL0lSSUnJwMCAoM8m2wpzZGSEu0e3xqaZGOMAm9JzPxsmmGcLggNsins/m/ZpDgiF4AA7
+WrduHXeC+cmTJy1rD8yC4AA7+uCDD7QLeL1ea1oC80JwgO2sXLmS293o7e21rD0wF4IDbCcW
+i2kXwP1sWYfgAHuprq7mdjdwP1vWITjAXsbHx7ULVFdXW9MS0IDgABtZvnw5t7tx8OBBy9oD
+C0FwgI1w5zJu377dmpaANgQH2EVlZaV2AUrpbbfdZk1jQBuCA+yCe1/MnXfeaU1LgAvBAbag
+Z3HAW2+91ZrGABeCA2yBuzggVuuxFQQHZB+3u4HtYO0GrwdkH7e7ge1g7QbBAVnGXYsY3Q0b
+wksCWcZdwQzdDRtCcEA2lZWVaRfA7vP2hOCArLn//vuxOKBDITgga+6++27tAth93rYQHJAd
+V155Jbe7gd3nbQvBAdnx0ksvaRfweDzWtARMQHBAFqxYsYJ7+/yJEycsaw8YheCALOAOeWIt
+YptDcIDVamtrsRax0yE4wGrcPTfF7VkLmYLgAEvV1NRwuxvvvvuuZe0Bc/TuVk8p3bBhw/bt
+2zdt2iSiHdFotLm5OfVlIBBobW2dW6ytra2np0ejANjc2NiYdgGNjY7BPvT2OJqamvbv33/t
+tddSSpubmzO+Pn0kEgkEAl0fmjcUuru7e3t7WQFCSFtbW2bbAKLpuZhy+PBhy9oDpukNjvb2
+9mQy+fbbbzc1NXV0dKxZsyazCRKJRGpqarTLdHZ2NjY2sseNjY2s6wEOwl2LeO3atda0BNJk
+bIyjtrZWUIL09fVp75cRjUbJjPVsg8EgISQcDqfzpGAlPVsfvPjii5a1B9Khd4xjrnXr1qUe
+d3R0dHR0NDU1tbe3m6utp6cnEAh0dnayL9nJyExs9nFFRcVCNWzduvWf//wne7x69epUVQuh
+lBJC3G73kiVLzLWZi1IqrnKmuLhYUM2U0szutMjtbtx5550ZPFyUUrfbnana5q1f6ItbUlIi
+rnJCiN/v9/v9GgW0V1cyFhzHjx9/+umnf/CDH7AvN2zY8PDDD9fW1h4/fvymm27q6OgghJjI
+DtabqKurY0Mb0Wg0FArNzY65IpEI63oQQmKxWOo63+joKMsFPfSXNEFo5aLrz2Dlqqpyn+uu
+u+7K1NOl6sxshVbWn/XGaxfQGxwPPPDAzLyYdXmltrb21VdfpZR2dHSYCI6KioqZMcG6FeFw
+OBUKC5m5E8fXvva1+vp69riwsPD8+fPaP6uqqqIoiUSCu+egOS6Xy+VycfdPNkeWZTa3cnR0
+lHurmDk+n298fJy7qJ9O8Xhcu8ALL7zAfcn083g8lFJxr6zH40kmk6OjoyLqp5T6fD5xryzr
+aIyPjycSCY1iyWSysLBwof/VGxwsNXbt2nXdddfV1tYuVGzDhg06KzSKZUQ0Gl3obOWKK65I
+PU4kEoODg9oVsn7s9PS0oLcXIUSWZXHvXRYcExMT3BW0zPH5fPF4nLvXiR5VVVXc0Y1169Zl
+8FjJsixJkrhXlt2AJ6h+SZJYagsNjsnJSe7JYwaC4+2339bIC8b07xkOh3fu3Dnr3GTWvl4s
+LyKRSKo/Qj4cIgWb43Y3sPWB4+i9qsJNjXQEg8FAIJC6RBIOhwOBwNyeRX19/d69e9njvXv3
+pk5MwM70bOxoTUsgg8xfVcms1tbWUCjEHs+cFdrS0lJXV9fQ0EAI2bJlS1tbGytWX1+/ZcuW
+bLUW9OOe7KC74URU0HlUdukZ4ygqKnK73fF4nHvPlTmqqqqqym2GOS6Xa9GiRYSQs2fPChrj
+WLJkyfDwcJpjHBUVFdojcJRSEcHh8/kkSRoZGcl4zYQQVVX9fn8ymRwYGBBRvyRJJSUlAwMD
+gj6bbFL/yMgId4xDY/o/bnIDgbRTg6C74VgIDhBFY7Yeg52WnAuvHIjC7W5kcOIGWAzBAUJg
+H+nchhcPhOBOOc3UnFTICgQHZB66GzkPrx9kHrc3wZ1LCjaH4IAMKy8v1y6AfaRzAIIDMow7
+IQ37SOcABAdkErobeQLBAZmE7kaeQHBAxpSVlWkXUBS73FQJaUJwQMZwb8pia0RCDkBwQGag
+u5FXEByQAV/+8pfR3cgrCA7IgJdeekm7gNCdCsB6CA5I18UXX8ztbpw8edKaxoA1EByQLu4V
+VnQ3cg+CA9KycuVK7tYH6G7kHgQHpIW741RBQYE1LQErITjAvMrKSm5347333rOqOWAdBAeY
+x10DnbswBzgUggNM4q5FTCn917/+ZU1jwGIIDjCJuxbxzN18IccgOMAM7u3zkiT94Q9/sKYx
+YD0EB5jBvX3+9OnT1rQEsgLBAYbp6W5Y0xLIlpy9YVFVVe0C7M0tSRK3pDkul0tc5al1tDwe
+j6AdRimlbrd77oJdjzzyCLe7MTQ0xK2cECLLsrjjI/SVZQ8E1c8OjqqqQvd1drlc7IkWwrnQ
+npObTk9NTXF/L1mWKaXJZFLQBh+SJFFKBVVOKWUfae4IpWmKosx7GN1ut/axlWV5fHxcu3J2
+8KenpwXtmC304EuSxP7qCD34QisnOj4j09PTGvcK5GaPI5lM6tytfnJy0tG71Q8PD4vbrf78
++fOzZmqsX7+em8inTp3i/tbFxcWyLE9MTIyOjqbb0PlYs1u9oBeX7VY/NDQkdLf6WCyG3erB
+IidOnNAukOrGQ25DcIBeVVVV3AnmkUjEsvZAFiE4QC/u9muCBgvBhhAcoAv3rhNKaV9fnzWN
+gaxDcIAu3CsUxcXF1rQE7ADBAXzcGV+U0n//+9/WNAbsAMEBfNwrvv39/da0BGwCwQEc3A1T
+MME8D+ElBy16VjDH/Wx5CMEBWrgrmGP3+fyE4IAFVVRU6Jlgbk1jwFYQHLCgsbEx7QIej8ea
+loDdIDhgfty7Tiil3FtXIFchOGB+3BlfGrdOQs5DcMA89Mz4Onz4sDWNARtCcMA8uDO+fve7
+31nTErAnBAfMpmfG1zXXXGNNY8CeEBzwP3bv3o0ZX8CF4ID/cffdd2sXYCtWQp5DcMBHPv3p
+T3O7G9Fo1JrGgJ0hOOAj3JV4sKQoMAgO+K+VK1diSVHQCcEB/xWLxbQLeL1ea1oC9ofgAEJ0
+3M9GKe3t7bWsPWBzCA4gRMemZFhSFGZCcACWFAXDEBzAn2C+fft2a1oCToHgyHd6Jpjfdttt
+1jQGnMJGswBDoVDqcVdX19wC0Wi0ubk59WUgEGhtbbWiZblr48aNmGAOJtglOEKhUH19/ZYt
+WwghbW1tLS0tc0MhEokgLDLryJEj2gWwpCjMyxanKuFwmBCyefNm9uXmzZuPHj06d2pzJBKp
+qamxunG568ILL8SSomCOLXocwWBw3nOTWfr6+qqrqxf631gslrqmmEwmKaU6n11/SUNYtUIr
+Zw9MP8W5c+e0C7hcLkHtT3H6wRdXvwVHPp2noNy/OdZra2vr7e2de0oSCoUCgcDRo0fZl7Oy
+prm5mfVcCCFr1qx59NFHLWiqc7nd7snJSY0ClFLu1RbIYVNTUxonqrbocczU3d3d09PT3t4+
+6/vszKWuro4FSjQaDYVCevopMC/t1CCEFBUVWdMScCJ7BUd3d3dnZ+eOHTsqKipm/VdFRcXM
+mGAFwuFwMBhk32lqakr1vQsKCkZGRrSfy+v1KoqSSCS4mwCY43K5XC4X9wYQc2RZLigoIISc
+P3/eRJ+ROw2UUnru3LlYLMZdstgcn88nSVI8Hp+YmBBRv8fjoZSOj4+LqNztdns8nmQyef78
+eRH1U0r9fj/3DWxaYWEhIWR8fFz7j0cymdT442Gj4Ghra2N9jbmpoUcqQQghiURicHBQuzzb
+E2R6elrQe5dSqiiKoMpTt7fH43ETJxTcOGBjSZOTk9yOiTks9aampgQdH0VRJEkS98qyN4+g
++tlevPF4XNAwAguOycnJdNpvi6sq5MMzlK6uroVSIxwOz5zowVRWVopvWq7hzviilB48eNCa
+xoBD2SI4otFoZ2fn3HGNmYLBYCAQSA1/hsPhQCBgrm+Sz/Rcgu3v77emMeBctjhVYX/fZs4K
+JYTs2LEjGAy2tLTU1dU1NDQQQlpbW1OdDswEM4d7CRYzvkAPWwRHQ0MDi4a5ZqUDLqOko7Ky
+EjO+ICNscaoC1uCOdGJJUdAJwZEvli1bpl0AS4qCfgiOvJBMJrmXYFevXm1NYyAHIDjygp41
+vg4cOGBNYyAHIDhyX1VVFS7BQmYhOHJfPB7XLsCmKgLoh3dMjuPOEyVY4wuMQ3DkMj0nKbgE
+CyYgOHIZ9yQFl2DBHARHztJzknL48GELWgK5B8GRmz72sY9xT1JkWV66dKk17YEcg+DITcPD
+w9oFKKW4LQVMQ3DkIO50L0JIXV2dBS2BXIXgyDWXX345d00wSZL++Mc/WtMeyEkIjlxz7Ngx
+7QKUUkzcgDQhOHJKeXk5d0wU6y1C+hAcuaO6ulrPScobb7xhTXsghyE4csSvfvUrPfs84CQF
+MgLBkSPuuOMObhmv12tBSyAfIDhygZ5JopTSvr4+CxoD+QDB4Xh67mQjWHEDMgrB4WwnTpzg
+3slGcJICmYbgcLZPfvKT3DKSJOEkBTILweFgelbuwnQvEAHB4VSyLHOHNiilGNoAERAcjlRW
+VqZnk/qrrrrKgsZAHkJwOE8gENAzICpJ0mOPPWZBeyAP2WLvWBF8Pp92Aba7sizL3JLmyLIs
+SVLGK6+vrx8YGOAWo5SeP38+nSeilKqq6na706lkIWx0xuVyCTr4LpeLUiqockVRCCHi6qeU
+EkJ8Pp+eq+ymeTwe9ossRLtLm7PBwR04ZC8PpVTQ5gCSJImo/OWXX9ZTTM/0cy7R2yaIO/iU
+UqGVswdC62e/goj6GUmStINJ+9lzNjhGRka0CxQVFbnd7kQiwS1pjqqqqqpmtnI9M0QJIc8+
++2z6z+t2u2OxGHefanOKi4tlWY7H46OjoyLq9/l8kiSJe2X9fn8ymRRUvyRJJSUl58+fF9Tj
+8Hg8hJCxsbGJiQntkqqqLvRfGONwDD23zBNCVFUNBoMWtAfyGYLDGcrLy/VcRpEk6f3337eg
+PZDnEBwOsGzZMj2pgbleYBkEh90tX758amqKWwxzvcBKCA5bW7NmDXcEiyA1wHI5e1UlB1RX
+V+u8qoodUsBiCA6bKisr03k1zu12i55wATAL3nC28/LLL5eWlupMDVmWT548KbpJALOgx2Ev
+y5Yt0zMUyiiKcvr0aT0XXAAyCz0Ou7jjjjtKS0v1p4Ysy4KmdQJwoceRfQcPHrz22msNzS+W
+JCmRSIhrEoA2BEeWrVq1yuhtrJTSs2fPCmoPgB4IjmyqqqrSs7LGTJIkYXooZB3GOLLmoosu
+MpoaPp8PqQF2gB5HFkxNTVVWVhq6GkIpDYfDK1asENcqAP0QHFarr68/dOiQoR/B6QnYDU5V
+rPPQQw+VlZUZTY077rgDqQF2gx6HFZ5//vkbbrjB6Ewtl8sViUQENQkgHQgOsbq7u5uamozO
+uWArawhdchIgHThVEeLYsWObNm1yu93f+c53jKbGnXfe2d/fj9QAO0OPIzNGR0f//Oc///3v
+f3/22WcjkYjp+0euvvrq73//+5ltG0DGITjMm5ycfPDBB5988sk333zT6IyMeW3duvUnP/lJ
++vUAiIbgMOPMmTN/+ctf7r333kxd75Bl+T//+Y+gDX4AMg7BYdhvf/vbu+66KxaLZarCl19+
+ORAIZKo2AAsgOPheeeWVV1555cyZM2vXrpVluaWlJVMjl1/96lfb2toyUhWAlRAcWsbGxm65
+5ZZnnnmGEEIpTSaTbGPH9LfYuuSSS5577jlcOgGHQnBo+fGPf8xSgxDCwjwaDrAAAAhYSURB
+VCL95bYuv/zyJ554ApEBjoZ5HAs6d+7cY489lqnaPB7Pz372szNnzjz55JNIDXA6G/U42tra
+enp6CCGBQKC1tdV0mUw5fvy4/oX85iVJ0qJFixobG3fu3ImFyCGX2OXd3N3d3dvb29XV1dXV
+RQiZd8hQT5kMUhRjqerxeEpLS2tra6+55pqWlpajR49OTEwcO3bsnnvuQWpAjrHLG7qzs7Ox
+sZE9bmxsZN0KE2UyaO3atV6vd97TiplBoKrqtm3b3n///RMnThw+fPhvf/vbnj17tm3bVlVV
+JbR5AFlki1OVaDRKCKmsrGRfBoNBQkg4HGYPdJbp6+sbHR1ljxVFKS0t1X5SlgiU0oV6Fn6/
+f+vWrffdd9/MyyiSJPn9/scff/ytt97q6+tbtWrV5z//+VSrZmLXX4x2W3SSZZk9UBRF3PYI
+siynf/1Ig7jjY9nBF1E/+7OkKIrQgy/Lsnb7tZ/dFsHBbh6vqKhIp8y9994bDofZ4zVr1jz6
+6KN6ntrlci1evHih//3pT39aUFBwzz33pDZw/fjHP/7QQw+tX7/+C1/4gp76NSrPiKKiInGV
++/1+cZUTQlRVVVVVXP1ut1tc5ZRSoS/uokWLxFVOCCkoKCgoKNAooD3AZ5dTlbn0LEUherkK
+Suntt9/e29v71FNPPfjgg/v37z906ND69euFPimA/dmixzGvefv/GmVuv/32macqg4OD2j/r
+8/lcLtfk5GTqpxbi8Xg2btzIHuvfysDtdns8npGREZ3lDVEUhXUHhoeHBZ2qLFq0aHR0VNDu
+LYWFhbIsj4+Pj4+Pi6ifDU5l8LaAmTwej9frTSaTQ0NDIuqXJKmoqGhoaEjQqQrrKMViMe07
+M5PJZHFx8UL/a4vgYJ//aDSqcSbCLVNdXZ16nEgkuMHBXpVkMinos8HOUQVVnhqyTSQS4sY4
+pqamhG77JO74TE9Pi9uzKjU0IKh+NsaRSCSEjnGk+eLa4lSFZUHqvIMNVcwcGdVZBgCsYYvg
+IITU19fv3buXPd67d299fb25MgBgAbsEx5YtW2pqakKhUCgUqqmp2bJlC/t+S0tLd3e3dhkA
+sFgGbvS0IT1jHEVFRW63Ox6PDw8Pi2gDu9bIbYY5LpeLXa47e/asoDGOJUuWDA8PT05Oiqi8
+uLhYluWxsTHuyLQ5Pp9PkiRBI9Oqqvr9/mQyOTAwIKJ+SZJKSkoGBgYEfTaXLl1KCBkZGUlN
+MtAuOS+79DgAwEEQHABgWP6eqrz44ou9vb01NTWpORqZpSiKoiiC5imcOnXqueeeI4R85Stf
+8Xq9Ip7C6/VOTEwIOg/q6uoaHBz8xCc+8alPfUpE/S6Xi1KakRWk5zp27NiBAwfcbvcNN9wg
+on5Kqaqq4+Pjgj6bjzzyCCHk8ssvX716tXZJjVMVW8zjyDhFUTR+Z+bAgQPPP//85z73ueuv
+v15cSwTN2n7nnXf27NlDCPn617/O/U1NE7d48r59+959991vf/vb11xzjaCnEOevf/3rnj17
+fD7frbfeKu5ZxB189s658MILL730UtOV4FQFAAxDcACAYQgOADAsNwdH9YjFYolEQlEU7ZuL
+7WlqaorNgPD7/U5cXmx0dHRqasrj8Xg8nmy3xbB4PD4+Pk4pLSwszHZbzGATl7xer8vlMl1J
+/gYHAJjmvD9WAJB1CA4AMCw353HMKxqNNjc3p75caIMFK3dgMCQUCqUes3XeZ9H5C1rMbrte
+GOXQw05Ev+GTeePgwYPbtm3TLtPV1ZUqs23btt27d4tvly4NDQ2pxuzevXveX0TPL2gxPcfT
+tsc86djDzgh9w+fRqUokEqmpqdEuY/EODDqxVYs2b97Mvty8efPRo0fZsu8z6fkFLWbDXS/0
+c+5hZ4S+4fMoOPr6+mYuLzjXQjswWNA2bcFgsKurS3sVeKLjF7SYnuNp22NOHHvYU4S+4fNo
+jKOnpycQCHR2drIv556v6tmlwQ6eeOKJQCAwt53cX9BiGdn1wj6ccthThL7h86XHwcK1rq6O
+7SDZ3t4+c9BLg+gdGIzq7u7u6enZunXrrO+b/gUtZoddL0xw3GEX/YbPlx5HRUXFzMRlKTtr
+s7h56dmlwTLd3d2dnZ07duyY+1fC9C9oMaO7XtiBEw+76Dd8zgYHe7HZ45tvvrmhoYH7I3p2
+abDGvI1nl83a29uz3jydMrLrRdY57rDrl87Bz9lTlYaGhq4PNTQ0hMPhuV21WeFqnx0YZjWe
+fNhV1hir0/MLWiwHdr1w4mFnRL/hczY4ZgkGg4FAIDViHA6H5x3osucODNFotLOzs729XaOM
+zl/QYo7e9cK5h52If8Pn101uqQyeOUmupaWlrq4udS6TmkhXX19vkx0YZp65pOzYsSMYDM5q
+/Ly/YHbNezztf8yJww87I+4Nn1/BAQAZkS+nKgCQQQgOADAMwQEAhiE4AMAwBAcAGIbgAADD
+EBwAYBiCAwAMQ3AAgGEIDgAwDMEBAIYhOADAMAQHWGffvn2U0pmbfTQ3N1NK9+3bl8VWgQkI
+DrDOpk2bmpqaOjo6WFLs27evo6Ojqalp06ZN2W4aGIPb6sFqlFJCyNtvv71mzRpCCN6BToQe
+B1ht165dhJCbbrqJEPLMM89kuzlgBnockAWXXXbZ/v37m5qatBfmA9tCcEAWsLMVgvMUx8Kp
+CliNXVVpampKPQbHydl9VcCeUldS2ElKR0fHl770JVxVcRycqoCl2EkKe9cdP358zZo1GzZs
+ePXVV7PdLjAGpypgHXZikrqSUltbu2vXrv379z/wwANZbRcYhh4HABiGHgcAGIbgAADDEBwA
+YBiCAwAMQ3AAgGEIDgAwDMEBAIYhOADAsP8HOfR2O3ThutwAAAAASUVORK5CYII="
+>
+</div>
+
+</div>
+
 </div>
 </div>
 
-<script>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>devtools<span class="o">::</span>session_info<span class="p">()</span>
+</pre></div>
 
-require(
-    {
-      // it makes sense to wait a little bit when you are loading
-      // reveal from a cdn in a slow connection environment
-      waitSeconds: 15
-    },
-    [
-      "reveal.js/lib/js/head.min.js",
-      "reveal.js/js/reveal.js"
-    ],
+</div>
+</div>
+</div>
 
-    function(head, Reveal){
+<div class="output_wrapper">
+<div class="output">
 
-        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
-        Reveal.initialize({
-            controls: true,
-            progress: true,
-            history: true,
 
-            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Session info -------------------------------------------------------------------
+Packages -----------------------------------------------------------------------
+</pre>
+</div>
+</div>
 
-            // Optional libraries used to extend on reveal.js
-            dependencies: [
-                { src: "reveal.js/lib/js/classList.js",
-                  condition: function() { return !document.body.classList; } },
-                { src: "reveal.js/plugin/notes/notes.js",
-                  async: true,
-                  condition: function() { return !!document.body.classList; } }
-            ]
-        });
+<div class="output_area"><div class="prompt"></div>
 
-        var update = function(event){
-          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
-            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
-          }
-        };
 
-        Reveal.addEventListener('slidechanged', update);
+<div class="output_text output_subarea ">
+<pre> setting  value                       
+ version  R version 3.3.2 (2016-10-31)
+ system   x86_64, mingw32             
+ ui       RTerm                       
+ language en_US.UTF-8                 
+ collate  Japanese_Japan.932          
+ tz       Asia/Tokyo                  
+ date     2017-05-10                  
 
-        var update_scroll = function(event){
-          $(".reveal").scrollTop(0);
-        };
+ package    * version    date       source                            
+ assertthat   0.2.0      2017-04-11 CRAN (R 3.3.2)                    
+ Cairo      * 1.5-9      2015-09-26 CRAN (R 3.2.2)                    
+ cellranger   1.1.0      2016-07-27 CRAN (R 3.2.5)                    
+ colorspace   1.3-2      2016-12-14 CRAN (R 3.3.3)                    
+ crayon       1.3.2      2016-06-28 CRAN (R 3.3.1)                    
+ DBI          0.6-1      2017-04-01 CRAN (R 3.3.3)                    
+ devtools     1.12.0     2016-06-24 CRAN (R 3.3.1)                    
+ digest       0.6.12     2017-01-27 CRAN (R 3.3.3)                    
+ dplyr      * 0.5.0      2016-06-24 CRAN (R 3.2.5)                    
+ evaluate     0.10       2016-10-11 CRAN (R 3.3.2)                    
+ ggplot2    * 2.2.1      2016-12-30 CRAN (R 3.3.3)                    
+ gridExtra    2.2.1      2016-02-29 CRAN (R 3.2.5)                    
+ gtable       0.2.0      2016-02-26 CRAN (R 3.2.5)                    
+ hms          0.3        2016-11-22 CRAN (R 3.3.3)                    
+ IRdisplay    0.4.4      2016-08-02 CRAN (R 3.3.1)                    
+ IRkernel     0.8.6.9000 2017-04-13 Github (IRkernel/IRkernel@29ae7df)
+ jsonlite     1.4        2017-04-08 CRAN (R 3.3.3)                    
+ labeling     0.3        2014-08-23 CRAN (R 3.2.1)                    
+ lazyeval     0.2.0      2016-06-12 CRAN (R 3.2.5)                    
+ magrittr     1.5        2014-11-22 CRAN (R 3.2.1)                    
+ memoise      1.0.0      2016-01-29 CRAN (R 3.2.3)                    
+ munsell      0.4.3      2016-02-13 CRAN (R 3.2.5)                    
+ openxlsx     4.0.17     2017-03-23 CRAN (R 3.3.3)                    
+ pbdZMQ       0.2-5      2016-12-18 CRAN (R 3.3.3)                    
+ plyr         1.8.4      2016-06-08 CRAN (R 3.2.5)                    
+ R6           2.2.0      2016-10-05 CRAN (R 3.3.2)                    
+ Rcpp         0.12.10    2017-03-19 CRAN (R 3.3.3)                    
+ readr      * 1.1.0      2017-03-22 CRAN (R 3.3.3)                    
+ readxl       1.0.0      2017-04-18 CRAN (R 3.3.3)                    
+ repr         0.12.0     2017-04-07 CRAN (R 3.3.3)                    
+ scales       0.4.1      2016-11-09 CRAN (R 3.3.2)                    
+ stringi      1.1.5      2017-04-07 CRAN (R 3.3.3)                    
+ stringr      1.2.0      2017-02-18 CRAN (R 3.3.3)                    
+ tibble       1.3.0      2017-04-01 CRAN (R 3.3.3)                    
+ uuid         0.1-2      2015-07-28 CRAN (R 3.3.1)                    
+ withr        1.0.2      2016-06-20 CRAN (R 3.2.5)                    </pre>
+</div>
 
-        Reveal.addEventListener('slidechanged', update_scroll);
+</div>
 
-    }
-);
-</script>
+</div>
+</div>
 
+</div>
+    </div>
+  </div>
 </body>
-
-
 </html>
