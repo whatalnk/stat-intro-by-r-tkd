@@ -48,4 +48,107 @@ d.pig
 
 d.pig %>% gather(feed, Pig) %>% aov(Pig ~ feed, data = .) %>% summary()
 
+aov(stron ~ lake, data = d.stron) %>% summary()
+
+sqrt(9.8 / 6)
+
+aov(stron ~ lake, data = d.stron) %>% TukeyHSD()
+
+d.stron %>% group_by(lake) %>% summarise_each(funs(mean)) %>% 
+    {
+        l <- list()
+        for(i in 1:5){
+            l[[.$lake[i]]] = .$stron[i]
+        }
+        comb <- combn(.$lake, 2)
+        for (i in 1:ncol(comb)){
+            xy <- comb[,i]
+            cat(xy[1], "-", xy[2], ": ", (l[[xy[1]]] - l[[xy[2]]]), "\n")
+        }
+    }
+
+d <- read_csv("../samplecode/Rで学ぶ統計学入門図版作成用/table6-5.csv") 
+head(d)
+
+aov(score ~ factor(group), data=d) %>% summary()
+
+aov(score ~ factor(group), data=d)
+
+aov(score ~ factor(group), data=d) %>% TukeyHSD()
+
+d %>% tibble::rownames_to_column() %>% spread(group, score) %>% select(-1) %>% sapply(function(x){
+    na.omit(x)
+})
+
+d %>% mutate(group = case_when(.$group == "g1" ~ "g2", 
+                              .$group == "g2" ~ "g1", 
+                              TRUE ~ .$group)) -> d
+
+aov(score ~ factor(group), data = d) %>% TukeyHSD()
+
+options(repr.plot.width = 3, repr.plot.height = 3)
+
+d %>% ggplot(aes(x = group, y = score)) + geom_boxplot()
+
+d2 <- read_csv("../samplecode/Rで学ぶ統計学入門図版作成用/table6-6.csv")
+head(d2)
+
+str(d2)
+
+d2 %>% tibble::rownames_to_column("id") %>% spread(group, score) %>% select(-id) %>% sapply(function(x){
+    na.omit(x)
+})
+
+library(multcomp)
+
+detach(package:multcomp)
+
+detach(package:TH.data)
+
+detach(package:MASS)
+
+select
+
+d2 %>% 
+    mutate(group = factor(group)) %>% 
+    aov(score ~ group, data=.) %>% 
+    multcomp::glht(linfct=multcomp::mcp(group="Dunnett")) %>% summary()
+
+d2 %>% ggplot(aes(x = group, y = score)) + geom_boxplot()
+
+d3 <- read_csv("../samplecode/Rで学ぶ統計学入門図版作成用/table6-7.csv")
+head(d3)
+
+d3 %>% tibble::rownames_to_column("id") %>% spread(group, score) %>% select(-id) %>% sapply(function(x){
+    na.omit(x)
+})
+
+d3 %>% ggplot(aes(group, score)) + geom_boxplot()
+
+d %>% {pairwise.t.test(.$score, .$group, p.adj = "holm")}
+
+d3 %>% {pairwise.t.test(.$score, .$group, p.adj = "holm")}
+
+ls()
+
+str(d.pig)
+
+d.pig %>% gather(feed, weight) %>% ggplot(aes(feed, weight)) + geom_boxplot()
+
+d.pig %>% gather(feed, weight) %>% aov(weight ~ factor(feed), data=.) %>% TukeyHSD()
+
+d.pig %>% gather(feed, weight) %>% {pairwise.t.test(.$weight, .$feed, p.adj = "holm")}
+
+str(d3)
+
+d3 %>% 
+    mutate(group = if_else(group == "g1", "C", group)) %>% 
+    mutate(group = factor(group)) %>% 
+    aov(score ~ group, data=.) %>% 
+    multcomp::glht(linfct=multcomp::mcp(group="Dunnett")) %>% summary()
+
+d3 %>% 
+    mutate(group = if_else(group == "g1", "C", group)) %>% 
+    {pairwise.t.test(.$score, .$group, p.adj = "holm")}
+
 devtools::session_info()
