@@ -11,3 +11,4 @@ title: stat-intro-by-r-tkd
 1. [3章](/stat-intro-by-r-tkd/Chap03.html)
     * [スライド](/stat-intro-by-r-tkd/Chap03.slides.html)
 1. [5章](/stat-intro-by-r-tkd/Chap05.html)
+1. [6章](/stat-intro-by-r-tkd/Chap06.html)
