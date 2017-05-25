@@ -6,6 +6,8 @@ library(readr)
 library(gridExtra)
 library(Cairo)
 
+(1 - 0.05)**3
+
 d.stron <- data_frame(
     stron = c(28.2, 33.2, 36.4, 34.6, 29.1, 31.0, 
               39.6, 40.8, 37.9, 37.1, 43.6, 42.4, 
