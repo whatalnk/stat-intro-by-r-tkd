@@ -43,3 +43,19 @@ for (i in 1:m) {
 * テキスト表6.7 のデータは（ほぼ）配布ファイルの`table6-5.csv`
     * g1 と g2 を逆にするとテキストのデータになる
 * 表6.8は `table6-6.csv`で，表6.9は `table6-7.csv`
+
+## 7章
+
+p.98
+
+誤
+
+```r
+summary(aov(y ~ size + student + size:student))
+```
+
+正
+
+```r
+summary(aov(kaiteki ~ size + student + size:student))
+```
