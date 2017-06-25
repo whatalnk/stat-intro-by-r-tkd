@@ -59,3 +59,7 @@ summary(aov(y ~ size + student + size:student))
 ```r
 summary(aov(kaiteki ~ size + student + size:student))
 ```
+
+## 9章
+* p128 l13: 回帰直線への適合度が高い -> 低い
+* p136 サンプルコード: age <- c() の最後の `+` が不要
