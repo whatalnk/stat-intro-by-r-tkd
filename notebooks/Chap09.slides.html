@@ -1,8 +1,64 @@
+
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>Chap09</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<title>Chap09 slides</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<!-- General and theme style sheets -->
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Loading the mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+<!-- Get Font-awesome from cdn -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
 
 <style type="text/css">
     /*!
@@ -11714,61 +11770,86 @@ ul.typeahead-list > li > a {
 
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
-body {
-  overflow: visible;
-  padding: 8px;
+.reveal {
+  font-size: 160%;
+  overflow-y: scroll;
 }
-
-div#notebook {
-  overflow: visible;
-  border-top: none;
+.reveal pre {
+  width: inherit;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 }
-
-@media print {
-  div.cell {
-    display: block;
-    page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
-  }
-  div.output { 
-    display: block;
-    page-break-inside: avoid; 
-  }
+.reveal pre code {
+  padding: 0px;
+}
+.reveal section img {
+  border: 0px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+.reveal i {
+  font-style: normal;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+.reveal .slides {
+  text-align: left;
+}
+.reveal.fade {
+  opacity: 1;
+}
+.reveal .progress {
+  position: static;
+}
+div.input_area {
+  padding: 0.06em;
+}
+div.code_cell {
+  background-color: transparent;
+}
+div.prompt {
+  width: 11ex;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  text-align: right;
+}
+div.output_area pre {
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+}
+div.output_prompt {
+  /* 5px right shift to account for margin in parent container */
+  margin: 5px 5px 0 0;
+}
+div.text_cell.rendered .rendered_html {
+  /* The H1 height seems miscalculated, we are just hidding the scrollbar */
+  overflow-y: hidden;
+}
+a.anchor-link {
+  /* There is still an anchor, we are only hidding it */
+  display: none;
+}
+.rendered_html p {
+  text-align: inherit;
 }
 </style>
 
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
 <link rel="stylesheet" href="custom.css">
 
-<!-- Loading mathjax macro -->
-<!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration --></head>
-<body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+</head>
 
+
+<body>
+
+
+<div class="reveal">
+<div class="slides">
+<section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11777,7 +11858,7 @@ div#notebook {
 <h1 id="9&#31456;-&#22238;&#24112;">9&#31456; &#22238;&#24112;<a class="anchor-link" href="#9&#31456;-&#22238;&#24112;">&#182;</a></h1>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11803,7 +11884,7 @@ div#notebook {
 
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11817,7 +11898,7 @@ div#notebook {
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11826,7 +11907,7 @@ div#notebook {
 <h2 id="9.1-&#32218;&#24418;&#22238;&#24112;&#12392;&#26368;&#23567;&#20108;&#20055;&#27861;">9.1 &#32218;&#24418;&#22238;&#24112;&#12392;&#26368;&#23567;&#20108;&#20055;&#27861;<a class="anchor-link" href="#9.1-&#32218;&#24418;&#22238;&#24112;&#12392;&#26368;&#23567;&#20108;&#20055;&#27861;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11842,7 +11923,7 @@ $$\hat{Y}_i = a + b X_i$$<p>回帰直線上の$\hat{Y}_i$と実際のデータ$Y
 $$\sum\limits^n_{i=1}\epsilon_i^2 = \sum\limits^n_{i=1} (Y_i - \hat{Y}_i)^2$$
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11860,7 +11941,7 @@ $$\sum\limits^n_{i=1}\epsilon_i^2 = \sum\limits^n_{i=1} (Y_i - \hat{Y}_i)^2$$
 
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11870,7 +11951,7 @@ $$\sum\limits^n_{i=1}\epsilon_i^2 = \sum\limits^n_{i=1} (Y_i - \hat{Y}_i)^2$$
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
@@ -11910,7 +11991,7 @@ The following objects are masked from &#39;package:base&#39;:
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
@@ -11939,7 +12020,7 @@ The following objects are masked from &#39;package:base&#39;:
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -11949,7 +12030,7 @@ The following objects are masked from &#39;package:base&#39;:
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
@@ -11965,20 +12046,7 @@ The following objects are masked from &#39;package:base&#39;:
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">4</span><span class="p">,</span> repr.plot.height<span class="o">=</span><span class="m">4</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
@@ -12221,7 +12289,7 @@ aABQ1P8B9fOgKoZpXhEAAAAASUVORK5CYII="
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12231,7 +12299,7 @@ aABQ1P8B9fOgKoZpXhEAAAAASUVORK5CYII="
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[22]:</div>
@@ -12249,7 +12317,7 @@ a.d1 <span class="o">&lt;-</span> <span class="kp">with</span><span class="p">(<
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[135]:</div>
@@ -12610,7 +12678,7 @@ AoUEDQAgUEjQAAAChQQNACBQSNAAAAL1//dzJTXLHhONAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12619,7 +12687,7 @@ AoUEDQAgUEjQAAAChQQNACBQSNAAAAL1//dzJTXLHhONAAAAAElFTkSuQmCC"
 <h2 id="9.2-&#22238;&#24112;&#30452;&#32218;&#12398;&#27531;&#24046;&#20998;&#25955;&#12392;&#27161;&#28310;&#35492;&#24046;">9.2 &#22238;&#24112;&#30452;&#32218;&#12398;&#27531;&#24046;&#20998;&#25955;&#12392;&#27161;&#28310;&#35492;&#24046;<a class="anchor-link" href="#9.2-&#22238;&#24112;&#30452;&#32218;&#12398;&#27531;&#24046;&#20998;&#25955;&#12392;&#27161;&#28310;&#35492;&#24046;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12632,7 +12700,7 @@ AoUEDQAgUEjQAAAChQQNACBQSNAAAAL1//dzJTXLHhONAAAAAElFTkSuQmCC"
 
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12643,7 +12711,7 @@ AoUEDQAgUEjQAAAChQQNACBQSNAAAAL1//dzJTXLHhONAAAAAElFTkSuQmCC"
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[26]:</div>
@@ -12659,7 +12727,7 @@ AoUEDQAgUEjQAAAChQQNACBQSNAAAAL1//dzJTXLHhONAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[27]:</div>
@@ -12677,7 +12745,7 @@ a.d2 <span class="o">&lt;-</span> <span class="kp">with</span><span class="p">(<
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[136]:</div>
@@ -13073,7 +13141,7 @@ IaABAATq/wPP18Cnv4jZWAAAAABJRU5ErkJggg=="
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13086,7 +13154,7 @@ IaABAATq/wPP18Cnv4jZWAAAAABJRU5ErkJggg=="
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[29]:</div>
@@ -13105,7 +13173,7 @@ a.d3 <span class="o">&lt;-</span> <span class="kp">with</span><span class="p">(<
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[137]:</div>
@@ -13496,7 +13564,7 @@ TkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13507,7 +13575,7 @@ TkSuQmCC"
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[32]:</div>
@@ -13556,7 +13624,7 @@ F-statistic: 13.12 on 1 and 6 DF,  p-value: 0.01107
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13573,7 +13641,7 @@ F-statistic: 13.12 on 1 and 6 DF,  p-value: 0.01107
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[33]:</div>
@@ -13622,7 +13690,7 @@ F-statistic: 3.889 on 1 and 6 DF,  p-value: 0.09607
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13638,7 +13706,7 @@ F-statistic: 3.889 on 1 and 6 DF,  p-value: 0.09607
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[34]:</div>
@@ -13687,7 +13755,7 @@ F-statistic: 9.075 on 1 and 14 DF,  p-value: 0.009318
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13701,7 +13769,7 @@ F-statistic: 9.075 on 1 and 14 DF,  p-value: 0.009318
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13710,7 +13778,7 @@ F-statistic: 9.075 on 1 and 14 DF,  p-value: 0.009318
 <h2 id="9.3-&#30452;&#32218;&#22238;&#24112;&#12398;&#26377;&#24847;&#24615;&#26908;&#23450;&#12398;&#21407;&#29702;">9.3 &#30452;&#32218;&#22238;&#24112;&#12398;&#26377;&#24847;&#24615;&#26908;&#23450;&#12398;&#21407;&#29702;<a class="anchor-link" href="#9.3-&#30452;&#32218;&#22238;&#24112;&#12398;&#26377;&#24847;&#24615;&#26908;&#23450;&#12398;&#21407;&#29702;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13726,7 +13794,7 @@ $$ s^2 = \frac{1}{n-2}\sum\limits^n_{i=1}[Y_i - (bX_i + a)]^2 $$<p>回帰の標�
 $$ s = \sqrt{\frac{1}{n-2}\sum\limits^n_{i=1}[Y_i - (bX_i + a)]^2} $$
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13736,7 +13804,7 @@ $$ s = \sqrt{\frac{1}{n-2}\sum\limits^n_{i=1}[Y_i - (bX_i + a)]^2} $$
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[41]:</div>
@@ -13774,7 +13842,7 @@ $$ s = \sqrt{\frac{1}{n-2}\sum\limits^n_{i=1}[Y_i - (bX_i + a)]^2} $$
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13794,7 +13862,7 @@ $$ s = \sqrt{\frac{1}{n-2}\sum\limits^n_{i=1}[Y_i - (bX_i + a)]^2} $$
 
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13805,7 +13873,7 @@ $$ t = \frac{(b - \beta)\sqrt{\sum\limits^n_{i=1}(X_i - \bar{X}_i)^2}}{s_\mathrm
 
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13815,7 +13883,7 @@ $$ t = \frac{(b - \beta)\sqrt{\sum\limits^n_{i=1}(X_i - \bar{X}_i)^2}}{s_\mathrm
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[53]:</div>
@@ -13852,7 +13920,7 @@ d1 <span class="o">%&gt;%</span> summarise<span class="p">(</span>t <span class=
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[54]:</div>
@@ -13883,7 +13951,7 @@ d1 <span class="o">%&gt;%</span> summarise<span class="p">(</span>t <span class=
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13899,7 +13967,7 @@ d1 <span class="o">%&gt;%</span> summarise<span class="p">(</span>t <span class=
 
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13912,7 +13980,7 @@ d1 <span class="o">%&gt;%</span> summarise<span class="p">(</span>t <span class=
 $$ \sum\limits^n_{i=1}(Y_i - \bar{Y}_i)^2 $$
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[56]:</div>
@@ -13943,7 +14011,7 @@ $$ \sum\limits^n_{i=1}(Y_i - \bar{Y}_i)^2 $$
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -13956,7 +14024,7 @@ $$ \sum\limits^n_{i=1}(Y_i - \bar{Y}_i)^2 $$
 $$ \sum\limits^n_{i=1}(\hat{Y}_i - \bar{Y}_i)^2 $$
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[58]:</div>
@@ -13987,7 +14055,7 @@ $$ \sum\limits^n_{i=1}(\hat{Y}_i - \bar{Y}_i)^2 $$
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14000,7 +14068,7 @@ $$ \sum\limits^n_{i=1}(\hat{Y}_i - \bar{Y}_i)^2 $$
 $$ \sum\limits^n_{i=1}(Y_i - \hat{Y}_i)^2 $$
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[59]:</div>
@@ -14031,7 +14099,7 @@ $$ \sum\limits^n_{i=1}(Y_i - \hat{Y}_i)^2 $$
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14041,7 +14109,7 @@ $$ \sum\limits^n_{i=1}(Y_i - \hat{Y}_i)^2 $$
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[146]:</div>
@@ -14071,7 +14139,7 @@ TRUE
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14080,7 +14148,7 @@ TRUE
 <h3 id="&#33258;&#30001;&#24230;">&#33258;&#30001;&#24230;<a class="anchor-link" href="#&#33258;&#30001;&#24230;">&#182;</a></h3>
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[72]:</div>
@@ -14099,7 +14167,7 @@ df.res <span class="o">&lt;-</span> <span class="kp">nrow</span><span class="p">
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14111,7 +14179,7 @@ df.res <span class="o">&lt;-</span> <span class="kp">nrow</span><span class="p">
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[61]:</div>
@@ -14142,7 +14210,7 @@ df.res <span class="o">&lt;-</span> <span class="kp">nrow</span><span class="p">
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[63]:</div>
@@ -14173,7 +14241,7 @@ df.res <span class="o">&lt;-</span> <span class="kp">nrow</span><span class="p">
 </div>
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14182,7 +14250,7 @@ df.res <span class="o">&lt;-</span> <span class="kp">nrow</span><span class="p">
 <h2 id="9.4-&#27770;&#23450;&#20418;&#25968;-$r^2$">9.4 &#27770;&#23450;&#20418;&#25968; $r^2$<a class="anchor-link" href="#9.4-&#27770;&#23450;&#20418;&#25968;-$r^2$">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14193,7 +14261,7 @@ $$ r^2 \equiv 1 - \frac{\sum\limits^n_{i = 1}(Y_i - \hat{Y}_i)^2}{\sum\limits^n_
 $$r^2 \equiv 1 - \frac{\text{残差平方和}}{\text{総平方和}} = \frac{回帰平方和}{総平方和}$$
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14203,7 +14271,7 @@ $$r^2 \equiv 1 - \frac{\text{残差平方和}}{\text{総平方和}} = \frac{回�
 $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / (n-2)}$$
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14213,7 +14281,7 @@ $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / 
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[64]:</div>
@@ -14244,7 +14312,7 @@ $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / 
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14254,7 +14322,7 @@ $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / 
 
 </div>
 </div>
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[73]:</div>
@@ -14285,7 +14353,7 @@ $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / 
 </div>
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14294,7 +14362,7 @@ $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / 
 <h2 id="9.5-&#30452;&#32218;&#22238;&#24112;&#12398;&#20107;&#20363;">9.5 &#30452;&#32218;&#22238;&#24112;&#12398;&#20107;&#20363;<a class="anchor-link" href="#9.5-&#30452;&#32218;&#22238;&#24112;&#12398;&#20107;&#20363;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14304,7 +14372,7 @@ $$ F = \frac{回帰平方和 / 1}{残差平方和 / n-2} = \frac{r^2}{(1-r^2) / 
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[83]:</div>
@@ -14549,7 +14617,7 @@ gg=="
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[79]:</div>
@@ -14599,7 +14667,7 @@ F-statistic: 14.67 on 1 and 10 DF,  p-value: 0.003315
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[84]:</div>
@@ -14951,7 +15019,7 @@ QQMAMAoFDQDAKBQ0AACjUNAAAIxCQQMAMOr/Ay9UiGwPPUJxAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14961,7 +15029,7 @@ QQMAMAoFDQDAKBQ0AACjUNAAAIxCQQMAMOr/Ay9UiGwPPUJxAAAAAElFTkSuQmCC"
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[85]:</div>
@@ -14977,7 +15045,7 @@ QQMAMAoFDQDAKBQ0AACjUNAAAIxCQQMAMOr/Ay9UiGwPPUJxAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[87]:</div>
@@ -15231,7 +15299,7 @@ BQ0AmqKgAUBTFDQAaIqCBgBN/S/DMulXdbcebAAAAABJRU5ErkJggg=="
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[88]:</div>
@@ -15281,7 +15349,7 @@ F-statistic: 401.1 on 1 and 11 DF,  p-value: 5.267e-10
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[89]:</div>
@@ -15674,7 +15742,7 @@ BQ0AIFIoaAAAkUJBAwCIFAoaAECkUNAAACL1//cPrQNWv9ryAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -15683,7 +15751,7 @@ BQ0AIFIoaAAAkUJBAwCIFAoaAECkUNAAACL1//cPrQNWv9ryAAAAAElFTkSuQmCC"
 <h2 id="9.6-&#22238;&#24112;&#30452;&#32218;&#12398;95%&#20449;&#38972;&#21306;&#38291;&#12392;95%&#20104;&#28204;&#21306;&#38291;">9.6 &#22238;&#24112;&#30452;&#32218;&#12398;95%&#20449;&#38972;&#21306;&#38291;&#12392;95%&#20104;&#28204;&#21306;&#38291;<a class="anchor-link" href="#9.6-&#22238;&#24112;&#30452;&#32218;&#12398;95%&#20449;&#38972;&#21306;&#38291;&#12392;95%&#20104;&#28204;&#21306;&#38291;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -15700,55 +15768,7 @@ $$ \hat{Y}^\ast \pm t_{(n-2, \alpha / 2)} s_e \sqrt{\frac{1}{n} + \frac{(X^\ast 
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>predict<span class="p">(</span>res.d5<span class="p">,</span> interval<span class="o">=</span><span class="s">&quot;confidence&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<thead><tr><th></th><th scope=col>fit</th><th scope=col>lwr</th><th scope=col>upr</th></tr></thead>
-<tbody>
-	<tr><th scope=row>1</th><td>1.523782</td><td>1.276815</td><td>1.770748</td></tr>
-	<tr><th scope=row>2</th><td>1.794011</td><td>1.571465</td><td>2.016556</td></tr>
-	<tr><th scope=row>3</th><td>2.064240</td><td>1.864678</td><td>2.263801</td></tr>
-	<tr><th scope=row>4</th><td>2.334469</td><td>2.155899</td><td>2.513038</td></tr>
-	<tr><th scope=row>5</th><td>2.874927</td><td>2.728970</td><td>3.020883</td></tr>
-	<tr><th scope=row>6</th><td>3.145156</td><td>3.008564</td><td>3.281747</td></tr>
-	<tr><th scope=row>7</th><td>3.415385</td><td>3.282061</td><td>3.548709</td></tr>
-	<tr><th scope=row>8</th><td>3.685614</td><td>3.549022</td><td>3.822205</td></tr>
-	<tr><th scope=row>9</th><td>3.955843</td><td>3.809886</td><td>4.101799</td></tr>
-	<tr><th scope=row>10</th><td>4.496301</td><td>4.317731</td><td>4.674870</td></tr>
-	<tr><th scope=row>11</th><td>4.766530</td><td>4.566968</td><td>4.966091</td></tr>
-	<tr><th scope=row>12</th><td>5.036759</td><td>4.814213</td><td>5.259304</td></tr>
-	<tr><th scope=row>13</th><td>5.306988</td><td>5.060021</td><td>5.553954</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[108]:</div>
@@ -15797,7 +15817,7 @@ d5.conf
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -15810,7 +15830,7 @@ d5.conf
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[109]:</div>
@@ -16276,7 +16296,7 @@ QAOAUgQ0ACj1P/hYyxlcZrLeAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -16286,7 +16306,7 @@ QAOAUgQ0ACj1P/hYyxlcZrLeAAAAAElFTkSuQmCC"
 $$ \hat{Y}^\ast \pm t_{(n-2, \alpha / 2)} s_e \sqrt{1 + \frac{1}{n} + \frac{(X^\ast - \bar{X})^2}{\sum^n_{i=1}(X_i - \bar{X})^2}}$$
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[113]:</div>
@@ -16345,7 +16365,7 @@ d5.pred
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[114]:</div>
@@ -16830,7 +16850,7 @@ KQIaAJQioAFAKQIaAJT6P2kUAnf6NO+AAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -16839,7 +16859,7 @@ KQIaAJQioAFAKQIaAJT6P2kUAnf6NO+AAAAAAElFTkSuQmCC"
 <h2 id="9.7-&#12414;&#12392;&#12417;">9.7 &#12414;&#12392;&#12417;<a class="anchor-link" href="#9.7-&#12414;&#12392;&#12417;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -16853,7 +16873,7 @@ KQIaAJQioAFAKQIaAJT6P2kUAnf6NO+AAAAAAElFTkSuQmCC"
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -16862,7 +16882,7 @@ KQIaAJQioAFAKQIaAJT6P2kUAnf6NO+AAAAAAElFTkSuQmCC"
 <h2 id="&#28436;&#32722;&#21839;&#38988;">&#28436;&#32722;&#21839;&#38988;<a class="anchor-link" href="#&#28436;&#32722;&#21839;&#38988;">&#182;</a></h2>
 </div>
 </div>
-</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -16872,7 +16892,7 @@ KQIaAJQioAFAKQIaAJT6P2kUAnf6NO+AAAAAAElFTkSuQmCC"
 
 </div>
 </div>
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[116]:</div>
@@ -16888,7 +16908,7 @@ KQIaAJQioAFAKQIaAJT6P2kUAnf6NO+AAAAAAElFTkSuQmCC"
 </div>
 </div>
 
-</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[118]:</div>
@@ -17126,7 +17146,7 @@ FAENAIoioAFAUQQ0ACiKgAYARf0vvpndP8IeSKEAAAAASUVORK5CYII="
 </div>
 </div>
 
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[120]:</div>
@@ -17176,7 +17196,7 @@ F-statistic: 10.52 on 1 and 8 DF,  p-value: 0.01181
 </div>
 </div>
 
-</div>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[121]:</div>
@@ -17189,7 +17209,7 @@ F-statistic: 10.52 on 1 and 8 DF,  p-value: 0.01181
 </div>
 </div>
 
-</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[123]:</div>
@@ -17611,95 +17631,63 @@ qQ7UZQAAAABJRU5ErkJggg=="
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[124]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>devtools<span class="o">::</span>session_info<span class="p">()</span>
-</pre></div>
-
-</div>
+</div></div></section></section>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
+<script>
 
+require(
+    {
+      // it makes sense to wait a little bit when you are loading
+      // reveal from a cdn in a slow connection environment
+      waitSeconds: 15
+    },
+    [
+      "reveal.js/lib/js/head.min.js",
+      "reveal.js/js/reveal.js"
+    ],
 
-<div class="output_area">
-<div class="prompt"></div>
+    function(head, Reveal){
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Session info -------------------------------------------------------------------
-Packages -----------------------------------------------------------------------
-</pre>
-</div>
-</div>
+        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
 
-<div class="output_area">
-<div class="prompt"></div>
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
 
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: "reveal.js/lib/js/classList.js",
+                  condition: function() { return !document.body.classList; } },
+                { src: "reveal.js/plugin/notes/notes.js",
+                  async: true,
+                  condition: function() { return !!document.body.classList; } }
+            ]
+        });
 
+        var update = function(event){
+          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
+            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
+          }
+        };
 
-<div class="output_text output_subarea ">
-<pre> setting  value                       
- version  R version 3.3.2 (2016-10-31)
- system   x86_64, mingw32             
- ui       RTerm                       
- language en_US.UTF-8                 
- collate  Japanese_Japan.932          
- tz       Asia/Tokyo                  
- date     2017-06-25                  
+        Reveal.addEventListener('slidechanged', update);
 
- package    * version    date       source                            
- assertthat   0.2.0      2017-04-11 CRAN (R 3.3.2)                    
- bindr        0.1        2016-11-13 CRAN (R 3.3.3)                    
- bindrcpp   * 0.1        2016-12-11 CRAN (R 3.3.3)                    
- Cairo        1.5-9      2015-09-26 CRAN (R 3.2.2)                    
- colorspace   1.3-2      2016-12-14 CRAN (R 3.3.3)                    
- crayon       1.3.2      2016-06-28 CRAN (R 3.3.1)                    
- devtools     1.12.0     2016-06-24 CRAN (R 3.3.1)                    
- digest       0.6.12     2017-01-27 CRAN (R 3.3.3)                    
- dplyr      * 0.7.0      2017-06-09 CRAN (R 3.3.3)                    
- evaluate     0.10       2016-10-11 CRAN (R 3.3.2)                    
- ggplot2    * 2.2.1      2016-12-30 CRAN (R 3.3.3)                    
- glue         1.0.0      2017-04-17 CRAN (R 3.3.3)                    
- gtable       0.2.0      2016-02-26 CRAN (R 3.2.5)                    
- IRdisplay    0.4.4      2016-08-02 CRAN (R 3.3.1)                    
- IRkernel     0.8.6.9000 2017-04-13 Github (IRkernel/IRkernel@29ae7df)
- jsonlite     1.4        2017-04-08 CRAN (R 3.3.3)                    
- labeling     0.3        2014-08-23 CRAN (R 3.2.1)                    
- lazyeval     0.2.0      2016-06-12 CRAN (R 3.2.5)                    
- magrittr     1.5        2014-11-22 CRAN (R 3.2.1)                    
- memoise      1.0.0      2016-01-29 CRAN (R 3.2.3)                    
- munsell      0.4.3      2016-02-13 CRAN (R 3.2.5)                    
- pbdZMQ       0.2-5      2016-12-18 CRAN (R 3.3.3)                    
- plyr         1.8.4      2016-06-08 CRAN (R 3.2.5)                    
- R6           2.2.1      2017-05-10 CRAN (R 3.3.3)                    
- Rcpp         0.12.11    2017-05-22 CRAN (R 3.3.3)                    
- repr         0.12.0     2017-04-07 CRAN (R 3.3.3)                    
- rlang        0.1.1      2017-05-18 CRAN (R 3.3.3)                    
- scales       0.4.1      2016-11-09 CRAN (R 3.3.2)                    
- stringi      1.1.5      2017-04-07 CRAN (R 3.3.3)                    
- stringr      1.2.0      2017-02-18 CRAN (R 3.3.3)                    
- tibble       1.3.3      2017-05-28 CRAN (R 3.3.3)                    
- uuid         0.1-2      2015-07-28 CRAN (R 3.3.1)                    
- withr        1.0.2      2016-06-20 CRAN (R 3.2.5)                    </pre>
-</div>
+        var update_scroll = function(event){
+          $(".reveal").scrollTop(0);
+        };
 
-</div>
+        Reveal.addEventListener('slidechanged', update_scroll);
 
-</div>
-</div>
+    }
+);
+</script>
 
-</div>
-    </div>
-  </div>
 </body>
-
- 
 
 
 </html>
