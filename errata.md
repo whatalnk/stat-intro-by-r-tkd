@@ -63,3 +63,8 @@ summary(aov(kaiteki ~ size + student + size:student))
 ## 9章
 * p128 l13: 回帰直線への適合度が高い -> 低い
 * p136 サンプルコード: age <- c() の最後の `+` が不要
+
+## 10章
+* p147 サンプルコードとその説明
+    * `live` 列があるのに使わずに `1 - d$dead` としている．p148の出力は `d$live` になっている
+* p155 Aakaike's information criterion -> Akaike's information criterion
