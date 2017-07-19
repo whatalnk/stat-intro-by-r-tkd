@@ -6,6 +6,8 @@ title: stat-intro-by-r-tkd
 
 ## Table of contents
 
+* [誤植や読んでいて気になったところ](https://github.com/whatalnk/stat-intro-by-r-tkd/blob/master/errata.md)
+
 1. [1章](/stat-intro-by-r-tkd/Chap01.html)
 1. [2章](/stat-intro-by-r-tkd/Chap02.html)
 1. [3章](/stat-intro-by-r-tkd/Chap03.html)
