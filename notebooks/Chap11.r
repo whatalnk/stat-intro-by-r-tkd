@@ -47,6 +47,9 @@ res.d2.2 <- glmmML(y ~ x, data=d2, cluster=ID, family=binomial(link=logit))
 
 summary(res.d2.2)
 
+res.d2.2.ghq <- glmmML(y ~ x, data=d2, cluster=ID, family=binomial(link=logit), method="ghq")
+summary(res.d2.2.ghq)
+
 coef(res.d2.2)
 
 d2.pred <- data.frame(x = seq(0, 5, 0.01)) %>% 

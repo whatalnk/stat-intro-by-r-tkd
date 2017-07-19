@@ -12491,7 +12491,7 @@ x -0.290</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>d2 <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;../samplecode/Rで学ぶ統計学入門図版作成用/table11-2.csv&quot;</span><span class="p">)</span>
@@ -13139,7 +13139,7 @@ vca0LsgKaEEDAHAKLWgAAE4hoAEAOIWABgDgFAIaAIBTCGgAAE4hoAEAOIWABgDgFAIaAIBT
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span><span class="s">&quot;glmmML&quot;</span><span class="p">)</span>
@@ -13168,7 +13168,7 @@ vca0LsgKaEEDAHAKLWgAAE4hoAEAOIWABgDgFAIaAIBTCGgAAE4hoAEAOIWABgDgFAIaAIBT
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>scaled residuals の値が本文と違う</p>
+<p>Random effects の値が本文と違う</p>
 
 </div>
 </div>
@@ -13231,6 +13231,17 @@ x -0.903</pre>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>glmmML()</code> のデフォルトは ラプラス近似．</p>
+<p><code>method="ghq"</code> すると，ガウス・エルミート積分法</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[33]:</div>
@@ -13274,6 +13285,49 @@ x            0.6376   0.2684  2.376   0.0175
 
 Scale parameter in mixing distribution:  5.585e-05 gaussian 
 Std. Error:                              0.7823 
+
+        LR p-value for H_0: sigma = 0:  0.5 
+
+Residual deviance: 47.2 on 37 degrees of freedom 	AIC: 53.2 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>res.d2.2.ghq <span class="o">&lt;-</span> glmmML<span class="p">(</span>y <span class="o">~</span> x<span class="p">,</span> data<span class="o">=</span>d2<span class="p">,</span> cluster<span class="o">=</span>ID<span class="p">,</span> family<span class="o">=</span>binomial<span class="p">(</span>link<span class="o">=</span>logit<span class="p">),</span> method<span class="o">=</span><span class="s">&quot;ghq&quot;</span><span class="p">)</span>
+<span class="kp">summary</span><span class="p">(</span>res.d2.2.ghq<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Call:  glmmML(formula = y ~ x, family = binomial(link = logit), data = d2,      cluster = ID, method = &#34;ghq&#34;) 
+
+
+               coef se(coef)      z Pr(&gt;|z|)
+(Intercept) -1.4285   0.8201 -1.742   0.0815
+x            0.6376   0.2684  2.376   0.0175
+
+Scale parameter in mixing distribution:  8.903e-05 gaussian 
+Std. Error:                              0.7822 
 
         LR p-value for H_0: sigma = 0:  0.5 
 
@@ -13903,6 +13957,16 @@ QmCC"
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="11.3">11.3<a class="anchor-link" href="#11.3">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>寄生蜂</p>
+
 </div>
 </div>
 </div>
