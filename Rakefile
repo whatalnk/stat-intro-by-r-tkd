@@ -10,7 +10,7 @@ end
 
 SOURCE_FOR_GHPAGES = Rake::FileList.new("notebooks/*.html")
 FILE_FOR_GHPAGES = SOURCE_FOR_GHPAGES.pathmap("docs/%f")
-desc "notebookd/*.html => docs/*.html"
+desc "notebooks/*.html => docs/*.html"
 task :ghpages => FILE_FOR_GHPAGES
 SOURCE_FOR_GHPAGES.each do |f|
   docs_file = f.pathmap("docs/%f")
