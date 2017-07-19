@@ -68,3 +68,7 @@ summary(aov(kaiteki ~ size + student + size:student))
 * p147 サンプルコードとその説明
     * `live` 列があるのに使わずに `1 - d$dead` としている．p148の出力は `d$live` になっている
 * p155 Aakaike's information criterion -> Akaike's information criterion
+
+## 11章
+* p176 `glmer()` の結果で，Random effects の値（Variance，Std.Dev）がやってみると違った．
+* `glmmML {glmmML}` はデフォルトではラプラス近似．`method="ghq"` を指定すると，ガウス・エルミート積分法を使用．
