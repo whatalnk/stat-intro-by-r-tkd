@@ -11654,8 +11654,10 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11666,9 +11668,11 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -11722,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11769,8 +11771,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11800,7 +11801,9 @@ div#notebook {
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>
@@ -11832,8 +11835,7 @@ The following object is masked from &#39;package:dplyr&#39;:
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11858,7 +11860,9 @@ The following object is masked from &#39;package:dplyr&#39;:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -11871,8 +11875,7 @@ The following object is masked from &#39;package:dplyr&#39;:
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11881,8 +11884,7 @@ The following object is masked from &#39;package:dplyr&#39;:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11915,7 +11917,9 @@ The following object is masked from &#39;package:dplyr&#39;:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -11956,7 +11960,9 @@ The following object is masked from &#39;package:dplyr&#39;:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -11974,8 +11980,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12026,7 +12031,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -12068,7 +12075,9 @@ d.pig
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -12108,7 +12117,9 @@ d.pig
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12127,8 +12138,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12153,7 +12163,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12171,8 +12183,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12199,7 +12210,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -12212,8 +12225,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12240,7 +12252,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12271,8 +12285,7 @@ $lake
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12311,7 +12324,9 @@ $lake
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1 - 2 :  -8.15 
@@ -12332,8 +12347,7 @@ $lake
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12355,8 +12369,7 @@ $lake
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12364,8 +12377,7 @@ $lake
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12394,7 +12406,9 @@ $lake
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Parsed with column specification:
@@ -12407,7 +12421,9 @@ cols(
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -12448,7 +12464,9 @@ cols(
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12483,7 +12501,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12523,7 +12543,9 @@ Estimated effects may be unbalanced</pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12550,8 +12572,7 @@ g4-g3 1.8750000 -0.3035936 4.053594 0.1102113
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12579,7 +12600,9 @@ g4-g3 1.8750000 -0.3035936 4.053594 0.1102113
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -12672,7 +12695,9 @@ g4-g3 1.8750000 -0.3035936 4.053594 0.1102113
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12729,7 +12754,9 @@ g4-g3  1.8750000 -0.3035936 4.053594 0.1102113
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12737,7 +12764,9 @@ g4-g3  1.8750000 -0.3035936 4.053594 0.1102113
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -12891,8 +12920,7 @@ AElFTkSuQmCC"
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12900,8 +12928,7 @@ AElFTkSuQmCC"
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12928,7 +12955,9 @@ AElFTkSuQmCC"
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Parsed with column specification:
@@ -12941,7 +12970,9 @@ cols(
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -12982,7 +13013,9 @@ cols(
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	34 obs. of  2 variables:
@@ -13024,7 +13057,9 @@ cols(
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -13106,7 +13141,9 @@ cols(
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Warning message:
@@ -13193,7 +13230,9 @@ The following object is masked from &#39;package:MASS&#39;:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -13229,7 +13268,9 @@ The following object is masked from &#39;package:MASS&#39;:
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13276,7 +13317,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13284,7 +13327,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13445,8 +13490,7 @@ AAAAAElFTkSuQmCC"
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13454,8 +13498,7 @@ AAAAAElFTkSuQmCC"
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13482,7 +13525,9 @@ AAAAAElFTkSuQmCC"
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Parsed with column specification:
@@ -13495,7 +13540,9 @@ cols(
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -13538,7 +13585,9 @@ cols(
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -13608,7 +13657,9 @@ cols(
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13616,7 +13667,9 @@ cols(
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13773,8 +13826,7 @@ rkJggg=="
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13800,7 +13852,9 @@ rkJggg=="
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13824,8 +13878,7 @@ P value adjustment method: holm </pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13851,7 +13904,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13892,7 +13947,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 <div class="output_html rendered_html output_subarea ">
@@ -13913,8 +13970,7 @@ P value adjustment method: holm </pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13939,7 +13995,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	5 obs. of  4 variables:
@@ -13972,7 +14030,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Warning message:
@@ -13981,7 +14041,9 @@ P value adjustment method: holm </pre>
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -13989,7 +14051,9 @@ P value adjustment method: holm </pre>
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -14171,7 +14235,9 @@ i9Wyf8PU1NTqFebphFTIBYIDNNPY2Oh0Ojs7O1cfYWVHbdlR1Wze0NHRMTw8rL5hfHy8tbVV
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -14215,7 +14281,9 @@ f4-f3 -14.11 -19.765551 -8.454449 0.0000168
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -14239,8 +14307,7 @@ P value adjustment method: holm </pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14265,7 +14332,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	22 obs. of  2 variables:
@@ -14309,7 +14378,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -14358,7 +14429,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
@@ -14399,7 +14472,9 @@ P value adjustment method: holm </pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Session info -------------------------------------------------------------------
@@ -14409,7 +14484,9 @@ Packages -----------------------------------------------------------------------
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
 
 
 
