@@ -1,0 +1,592 @@
+---
+title: "多元配置の分散分析と交互作用"
+subtitle: "『Rで学ぶ統計学入門』 第7章"  
+author: ""
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(dpi = 320)
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+mono_light(
+  base_color = "#1c5253",
+  # header: family は 源ノ角ゴシック，weight は bold
+  header_font_family = "Source Han Sans JP",
+  header_font_weight = "Bold", 
+  # 本文: family は 源ノ角ゴシック，weight は Regular
+  text_font_family = "Source Sans Pro", 
+  text_font_family_fallback = "Source Han Sans JP", 
+  text_font_size = "18px", 
+  # コードは Ricty regular
+  code_font_family = "Ricty",
+  code_font_size = "0.8em",
+  link_color = "#A1C5AB"
+)
+```
+
+### 今回使うパッケージ
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)
+library(gridExtra)
+```
+
+---
+class: center, middle, inverse
+## 多元配置の分散分析の必要性
+
+---
+### 例: 熱帯植物種の芽生えの伸長
+
+__交互作用__：複数要因の「相乗効果」
+
+平均気温と照度の伸長への影響を調べる
+
+要因と水準：
+* 平均気温: 20, 22, 24℃
+* 照度: 1000, 2000, 3000lx
+
+平均気温の効果，照度の効果，平均気温と照度の効果（交互作用）
+
+実験デザイン（図7.1）
+* a: 平均気温，照度それぞれの影響のみ（交互作用はわからない）
+* b: 平均気温と照度 両方の影響（交互作用がわかる）
+
+---
+class: center, middle, inverse
+## 具体的な事例で交互作用を検出してみよう
+
+---
+### 具体例：学生寮の快適度調査
+
+.pull-left[
+```{r}
+d.room <- data_frame(
+    kaiteki = c(6, 5, 6, 7, 2, 1, 1, 0, 7, 8, 8, 9, 8, 7, 6, 7), 
+    size = c(rep("S", 8), rep("L", 8)), 
+    student = c(rep(1L, 4), rep(2L, 4), rep(1L, 4), rep(2L, 4))
+)
+head(d.room)
+```
+
+```{r}
+d.room %>% mutate(student=as.factor(student), size=as.factor(size)) %>% summary()
+```
+]
+
+.pull-right[
+```{r fig.height=4, fig.width=6}
+d.room %>% mutate(student=as.factor(student), size=as.factor(size)) %>% 
+  ggplot(aes(x=size, y=kaiteki, group=size)) + 
+  geom_boxplot() + 
+  geom_jitter(aes(colour=student), width=0.2)
+```
+
+]
+
+
+---
+### 二元分散分析の実行
+二元分散分析: `aov()` に交互作用項（`size:student`）を組み込む
+* 主効果：`size`，`student`
+* 交互作用：`size:student`
+ともに有意
+```{r}
+d.room %>% 
+  aov(kaiteki ~ size + student + size:student, data = .) %>% 
+  summary()
+```
+
+---
+### 要因配置図
+.pull-left[
+
+左
+* サイズが大きくなると快適度は上がる
+* 上がり方は2人のときの方が大きい
+* 主効果
+    * 部屋サイズ：2本の直線の平均線の上がり具合
+    * 人数：2本の直線の高さの差
+* 交互作用あり（平行ではない）
+
+```{r}
+# 左（図7.2(a), 図7.3）
+gp1 <- d.room %>% 
+  mutate(size=factor(size, levels=c("S", "L"), labels=c("S", "L")), 
+         student=factor(student)) %>% 
+  group_by(size, student) %>% 
+  summarise(kaiteki = mean(kaiteki)) %>% 
+  ggplot(aes(x=size, y=kaiteki, group=student, colour=student)) + 
+  geom_line() + geom_point()
+
+# 右（図7.2(b)）
+gp2 <- d.room %>% 
+  mutate(size=factor(size, levels=c("S", "L"), labels=c("S", "L")), 
+         student=factor(student)) %>% 
+  group_by(student, size) %>% 
+  summarise(kaiteki = mean(kaiteki)) %>% 
+  ggplot(aes(x=student, y=kaiteki, group=size, colour=size)) + 
+  geom_line() + geom_point()
+
+```
+
+]
+
+.pull-right[
+```{r echo=FALSE, fig.height=4, fig.width=6}
+grid.arrange(gp1, gp2, ncol=2)
+```
+]
+
+
+---
+class: center, middle, inverse
+## 二元分散分析の原理と計算法
+
+---
+### 栽培植物の生育への土壌と施肥の影響
+
+.pull-left[
+
+* `plant`：ある栽培植物Xの生育（生育スコア，cm）
+* `soil`：土壌の性質（1 自然土，2 人口土）
+* `ft`：施肥（1 あり，2 なし）
+
+
+```{r message=FALSE}
+d.soil <- read_csv("../../samplecode/Rで学ぶ統計学入門図版作成用（改訂版）/付録/table7-2.csv")
+head(d.soil)
+
+d.soil %>% mutate(soil=as.factor(soil), ft=as.factor(ft)) %>% summary()
+```
+
+]
+.pull-right[
+```{r fig.height=4, fig.width=6}
+d.soil %>% mutate(soil=as.factor(soil), ft=as.factor(ft)) %>% 
+  ggplot(aes(x=soil, y=plant, group=soil)) + 
+  geom_boxplot() + 
+  geom_jitter(aes(colour=ft), width = 0.2)
+```
+
+]
+---
+### 二元配置分散分析の実行
+
+* 主効果・交互作用 ともに有意
+
+.pull-left[
+```{r d-soil-aov}
+d.soil %>% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %>% 
+  summary()
+```
+
+]
+
+.pull-right[
+```{r fig.height=4, fig.width=6}
+d.soil %>% 
+  mutate(soil = factor(soil, levels=c(1, 2), labels = c("natural", "agricultural")), 
+         ft = factor(ft, levels = c(1, 2), labels = c("C", "F"))) %>% 
+  group_by(soil, ft) %>% summarise(plant=mean(plant)) %>% 
+  ggplot(aes(x = soil, y = plant, group=ft, colour=ft)) + 
+  geom_line() + geom_point()
+```
+]
+
+---
+### 検算：各標本の平均
+.pull-left[
+
+土壌 $\times$ 施肥
+
+```{r}
+d.soil %>% 
+  group_by(soil, ft) %>% 
+  summarise(plant=mean(plant)) %>% 
+  ungroup()
+```
+
+
+]
+
+.pull-right[
+ANOVA結果
+
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+
+]
+---
+### 検算：要因ごとの平均
+.pull-left[
+土壌
+
+```{r}
+d.soil %>% select(-ft) %>% group_by(soil) %>% summarise(plant=mean(plant))
+```
+
+施肥
+```{r}
+d.soil %>% select(-soil) %>% group_by(ft) %>% summarise(plant=mean(plant))
+```
+]
+
+.pull-right[
+ANOVA結果
+
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+
+]
+
+
+---
+### 検算：総平均
+
+.pull-left[
+```{r}
+(mean.Y <- d.soil %>% 
+   summarise(mean.Y=mean(plant)) %>% 
+   .[["mean.Y"]])
+```
+]
+
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+---
+### 総平方和と自由度
+.pull-left[
+
+```{r}
+(SS.Y <- d.soil %>% 
+   mutate(x = (plant - mean.Y)**2) %>% 
+   summarise(SS.Y = sum(x)) %>% 
+   .[["SS.Y"]])
+
+(df.Y <- 2*2*10-1)
+```
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+---
+### 総グループ間平方和（SS.among）と総グループ間自由度（df.among）
+.pull-left[
+
+```{r}
+(SS.among <- d.soil %>% 
+   group_by(soil, ft) %>% 
+   summarise(x = mean(plant), n = n()) %>% 
+   mutate(x = n * (x - mean.Y)**2) %>% 
+   ungroup() %>% 
+   summarise(SS.among = sum(x)) %>% 
+   .[["SS.among"]])
+(df.among <- 2*2-1)
+```
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+---
+### 検算：土壌効果の平方和（SS.soil）と自由度（df.soil）
+.pull-left[
+
+```{r}
+(SS.soil <- d.soil %>% 
+   group_by(soil) %>% 
+   summarise(x = mean(plant), n = n()) %>% 
+   mutate(x = n * (x - mean.Y)**2) %>% 
+   summarise(SS.soil = sum(x)) %>% 
+   .[["SS.soil"]])
+
+(df.soil <- 2 - 1)
+```
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+
+---
+### 検算：施肥効果の平方和（SS.ft）と自由度（df.ft）
+.pull-left[
+```{r}
+(SS.ft <- d.soil %>% 
+  group_by(ft) %>%
+  summarise(x = mean(plant), n = n()) %>% 
+  mutate(x = n * (x - mean.Y)**2) %>% 
+  summarise(SS.ft = sum(x)) %>% 
+  .[["SS.ft"]])
+(df.ft <- 2 - 1)
+```
+
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+---
+### 交互作用の平方和（SS.inter）と自由度（df.inter）
+
+.pull-left[
+
+```{r}
+(SS.inter <- SS.among - SS.soil - SS.ft)
+(df.inter <- (2 - 1) * (2 - 1))
+```
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+---
+### 残差平方和（SS.within）と自由度（df.within）
+
+.pull-left[
+
+```{r}
+(SS.within <- d.soil %>% 
+   group_by(soil, ft) %>% 
+   mutate(x = (plant - mean(plant))**2 ) %>% 
+   summarise(x = sum(x)) %>% ungroup() %>% 
+   summarise(SS.within = sum(x)) %>% 
+   .[["SS.within"]])
+(df.within <- 4 * (10 - 1))
+```
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+---
+### 検算：F値
+.pull-left[
+MS
+```{r}
+
+MS.soil <- SS.soil / df.soil
+MS.ft <- SS.ft / df.ft
+MS.inter <- SS.inter / df.inter
+MS.within <- SS.within / df.within
+```
+
+F値
+```{r}
+(Fval.soil <- MS.soil / MS.within)
+(Fval.ft <- MS.ft / MS.within)
+(Fval.inter <- MS.inter / MS.within)
+```
+
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+---
+### 検算：p値
+.pull-left[
+
+```{r}
+# soil
+1 - pf(Fval.soil, df.soil, df.within)
+# ft
+1 - pf(Fval.ft, df.ft, df.within)
+# interaction
+1 - pf(Fval.inter, df.inter, df.within)
+```
+
+]
+.pull-right[
+```{r echo=TRUE, ref.label="d-soil-aov"}
+
+```
+]
+
+---
+class: center, middle, inverse
+
+## 7.4 線形混合モデル: 固定要因とランダム変量要因を取り込む
+
+---
+### 固定要因とランダム変量要因
+
+* 固定要因：土壌の種類，施肥効果など
+* ランダム変量要因：「ブロック」
+
+完全独立反復と疑似反復
+
+* 乱塊（完全ランダムブロック）：各処理がブロックごとに1回
+* 直交（完全ランダム要因）：各処理がブロックごとに複数回
+* 入れ子（ネスト）：処理ごとにブロックを設ける，ブロック内で処理は複数回
+
+---
+### 直交の例：豚の体重
+
+.pull-left[
+
+* 豚舎3つ（`block`）
+* 処理（`treat`）あり（f）なし（t）
+
+```{r message=FALSE}
+d.pig <- read_csv("../../samplecode/Rで学ぶ統計学入門図版作成用（改訂版）/付録/table7-5.csv")
+head(d.pig)
+```
+]
+
+
+.pull-right[
+
+```{r fig.height=4, fig.width=6}
+pig.mean <- d.pig$wt %>% mean()
+pig.mean.f <- filter(d.pig, treat=="f")$wt %>% mean()
+pig.mean.c <- filter(d.pig, treat=="c")$wt %>% mean()
+d.pig %>% ggplot(aes(x = number, y = wt, colour=treat)) + geom_point() + 
+    geom_hline(yintercept = pig.mean.c, linetype=2, colour=2) + 
+    geom_hline(yintercept = pig.mean.f, linetype=2, colour=4) + 
+    geom_hline(yintercept = pig.mean, linetype=2)
+```
+]
+
+---
+### ANOVA の実行
+.pull-left[
+* ランダム変量要因：`Error` 項
+* Nested-ANOVA という
+
+
+Error: block
+* Residual: 主効果としてのブロック（豚舎）
+
+Error: block:treat
+* treat: 主効果としての処理（餌）
+* Residuals: ブロックと餌の交互作用
+
+Error: Within
+* Residuals: 個体間のばらつき
+
+]
+.pull-right[
+```{r}
+d.pig %>% 
+  mutate(block=as.factor(block), treat=as.factor(treat)) %>% 
+  aov(wt ~ treat + Error(block / treat), data=.) %>% 
+  summary()
+```
+
+]
+---
+## まとめ
+
+* 二元配置分散分析
+    * 固定要因と固定要因
+    * 固定要因とランダム要因
+* 線形混合モデル
+    * ランダム要因をくみこむ
+    * 疑似反復に注意
+
+---
+### 演習問題7.2
+
+.pull-left[
+
+```{r}
+d.mouse <- data_frame(
+    wt = c(55.4, 49.7, 52.1, 49.5, 53.2, 51.4, 54.3, 
+          47.2, 49.4, 51.3, 54.5, 48.1, 50.8, 52.7,
+          50.5, 48.2, 48.4, 52.1, 51.8, 49.7, 49.2, 
+          47.3, 46.2, 48.8, 50.1, 48.2, 47.0, 46.5), 
+    feed = c(rep("A", 7*2), rep("B", 7*2)), 
+    gender = c(rep("M", 7), rep("F", 7), rep("M", 7), rep("F", 7))
+)
+head(d.mouse)
+```
+]
+
+.pull-right[
+```{r fig.height=4, fig.width=6}
+d.mouse %>% 
+  mutate(feed=factor(feed), gender=factor(gender)) %>% 
+  group_by(feed, gender) %>% 
+  summarise(wt=mean(wt)) %>% 
+  ggplot(aes(x=feed, y=wt, group=gender, colour=gender)) + 
+  geom_line() + geom_point()
+```
+]
+---
+### 演習問題7.2
+```{r}
+d.mouse %>% aov(wt ~ feed + gender + feed:gender, data=.) %>% summary()
+```
+
+---
+### 演習問題7.3
+.pull-left[
+
+```{r}
+d.exam <- data_frame(
+    indiv = c(1:36), 
+    score = c(78, 72, 81, 71, 74, 72, 
+              85, 83, 79, 77, 75, 77, 
+              83, 86, 74, 76, 73, 71, 
+              66, 71, 72, 60, 58, 55, 
+              58, 49, 62, 69, 70, 63, 
+              65, 59, 54, 67, 66, 67), 
+    juku = c(rep(1, 18), rep(2, 18)), 
+    class = rep(c(rep("A", 6), rep("B", 6), rep("C", 6)), 2)
+)
+head(d.exam)
+```
+]
+
+.pull-right[
+```{r fig.height=4, fig.width=6}
+d.exam %>% mutate(juku=as.factor(juku), class=as.factor(class)) %>% 
+  ggplot(aes(x = indiv, y = score, shape=juku, colour=class)) + 
+  geom_point()
+```
+
+]
+---
+### 演習問題7.3
+```{r}
+d.exam %>% mutate(juku=factor(juku), class=factor(class)) %>% 
+  aov(score ~ juku + Error(class / juku), data=.) %>% 
+  summary()
+```

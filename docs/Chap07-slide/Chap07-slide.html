@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>多元配置の分散分析と交互作用</title>
+    <meta charset="utf-8">
+    <meta name="date" content="2018-07-09" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 多元配置の分散分析と交互作用
+## 『Rで学ぶ統計学入門』 第7章
+### 2018-07-09
+
+---
+
+
+
+
+
+
+### 今回使うパッケージ
+
+
+```r
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)
+library(gridExtra)
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+---
+class: center, middle, inverse
+## 多元配置の分散分析の必要性
+
+---
+### 例: 熱帯植物種の芽生えの伸長
+
+__交互作用__：複数要因の「相乗効果」
+
+平均気温と照度の伸長への影響を調べる
+
+要因と水準：
+* 平均気温: 20, 22, 24℃
+* 照度: 1000, 2000, 3000lx
+
+平均気温の効果，照度の効果，平均気温と照度の効果（交互作用）
+
+実験デザイン（図7.1）
+* a: 平均気温，照度それぞれの影響のみ（交互作用はわからない）
+* b: 平均気温と照度 両方の影響（交互作用がわかる）
+
+---
+class: center, middle, inverse
+## 具体的な事例で交互作用を検出してみよう
+
+---
+### 具体例：学生寮の快適度調査
+
+.pull-left[
+
+```r
+d.room &lt;- data_frame(
+    kaiteki = c(6, 5, 6, 7, 2, 1, 1, 0, 7, 8, 8, 9, 8, 7, 6, 7), 
+    size = c(rep("S", 8), rep("L", 8)), 
+    student = c(rep(1L, 4), rep(2L, 4), rep(1L, 4), rep(2L, 4))
+)
+head(d.room)
+```
+
+```
+## # A tibble: 6 x 3
+##   kaiteki size  student
+##     &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;
+## 1      6. S           1
+## 2      5. S           1
+## 3      6. S           1
+## 4      7. S           1
+## 5      2. S           2
+## 6      1. S           2
+```
+
+
+```r
+d.room %&gt;% mutate(student=as.factor(student), size=as.factor(size)) %&gt;% summary()
+```
+
+```
+##     kaiteki     size  student
+##  Min.   :0.00   L:8   1:8    
+##  1st Qu.:4.25   S:8   2:8    
+##  Median :6.50                
+##  Mean   :5.50                
+##  3rd Qu.:7.25                
+##  Max.   :9.00
+```
+]
+
+.pull-right[
+
+```r
+d.room %&gt;% mutate(student=as.factor(student), size=as.factor(size)) %&gt;% 
+  ggplot(aes(x=size, y=kaiteki, group=size)) + 
+  geom_boxplot() + 
+  geom_jitter(aes(colour=student), width=0.2)
+```
+
+![](Chap07-slide_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+]
+
+
+---
+### 二元分散分析の実行
+二元分散分析: `aov()` に交互作用項（`size:student`）を組み込む
+* 主効果：`size`，`student`
+* 交互作用：`size:student`
+ともに有意
+
+```r
+d.room %&gt;% 
+  aov(kaiteki ~ size + student + size:student, data = .) %&gt;% 
+  summary()
+```
+
+```
+##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## size          1     64   64.00      96 4.46e-07 ***
+## student       1     36   36.00      54 8.87e-06 ***
+## size:student  1     16   16.00      24 0.000367 ***
+## Residuals    12      8    0.67                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+---
+### 要因配置図
+.pull-left[
+
+左
+* サイズが大きくなると快適度は上がる
+* 上がり方は2人のときの方が大きい
+* 主効果
+    * 部屋サイズ：2本の直線の平均線の上がり具合
+    * 人数：2本の直線の高さの差
+* 交互作用あり（平行ではない）
+
+
+```r
+# 左（図7.2(a), 図7.3）
+gp1 &lt;- d.room %&gt;% 
+  mutate(size=factor(size, levels=c("S", "L"), labels=c("S", "L")), 
+         student=factor(student)) %&gt;% 
+  group_by(size, student) %&gt;% 
+  summarise(kaiteki = mean(kaiteki)) %&gt;% 
+  ggplot(aes(x=size, y=kaiteki, group=student, colour=student)) + 
+  geom_line() + geom_point()
+
+# 右（図7.2(b)）
+gp2 &lt;- d.room %&gt;% 
+  mutate(size=factor(size, levels=c("S", "L"), labels=c("S", "L")), 
+         student=factor(student)) %&gt;% 
+  group_by(student, size) %&gt;% 
+  summarise(kaiteki = mean(kaiteki)) %&gt;% 
+  ggplot(aes(x=student, y=kaiteki, group=size, colour=size)) + 
+  geom_line() + geom_point()
+```
+
+]
+
+.pull-right[
+![](Chap07-slide_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: center, middle, inverse
+## 二元分散分析の原理と計算法
+
+---
+### 栽培植物の生育への土壌と施肥の影響
+
+.pull-left[
+
+* `plant`：ある栽培植物Xの生育（生育スコア，cm）
+* `soil`：土壌の性質（1 自然土，2 人口土）
+* `ft`：施肥（1 あり，2 なし）
+
+
+
+```r
+d.soil &lt;- read_csv("../../samplecode/Rで学ぶ統計学入門図版作成用（改訂版）/付録/table7-2.csv")
+head(d.soil)
+```
+
+```
+## # A tibble: 6 x 3
+##   plant  soil    ft
+##   &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
+## 1  36.1     1     1
+## 2  34.1     1     1
+## 3  32.7     1     1
+## 4  29.2     1     1
+## 5  26.5     1     1
+## 6  32.8     1     1
+```
+
+```r
+d.soil %&gt;% mutate(soil=as.factor(soil), ft=as.factor(ft)) %&gt;% summary()
+```
+
+```
+##      plant       soil   ft    
+##  Min.   :22.80   1:20   1:20  
+##  1st Qu.:28.88   2:20   2:20  
+##  Median :33.35                
+##  Mean   :32.21                
+##  3rd Qu.:36.10                
+##  Max.   :42.10
+```
+
+]
+.pull-right[
+
+```r
+d.soil %&gt;% mutate(soil=as.factor(soil), ft=as.factor(ft)) %&gt;% 
+  ggplot(aes(x=soil, y=plant, group=soil)) + 
+  geom_boxplot() + 
+  geom_jitter(aes(colour=ft), width = 0.2)
+```
+
+![](Chap07-slide_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+---
+### 二元配置分散分析の実行
+
+* 主効果・交互作用 ともに有意
+
+.pull-left[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+]
+
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  mutate(soil = factor(soil, levels=c(1, 2), labels = c("natural", "agricultural")), 
+         ft = factor(ft, levels = c(1, 2), labels = c("C", "F"))) %&gt;% 
+  group_by(soil, ft) %&gt;% summarise(plant=mean(plant)) %&gt;% 
+  ggplot(aes(x = soil, y = plant, group=ft, colour=ft)) + 
+  geom_line() + geom_point()
+```
+
+![](Chap07-slide_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+---
+### 検算：各標本の平均
+.pull-left[
+
+土壌 `\(\times\)` 施肥
+
+
+```r
+d.soil %&gt;% 
+  group_by(soil, ft) %&gt;% 
+  summarise(plant=mean(plant)) %&gt;% 
+  ungroup()
+```
+
+```
+## # A tibble: 4 x 3
+##    soil    ft plant
+##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1     1     1  32.4
+## 2     1     2  34.7
+## 3     2     1  25.7
+## 4     2     2  36.1
+```
+
+
+]
+
+.pull-right[
+ANOVA結果
+
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+]
+---
+### 検算：要因ごとの平均
+.pull-left[
+土壌
+
+
+```r
+d.soil %&gt;% select(-ft) %&gt;% group_by(soil) %&gt;% summarise(plant=mean(plant))
+```
+
+```
+## # A tibble: 2 x 2
+##    soil plant
+##   &lt;int&gt; &lt;dbl&gt;
+## 1     1  33.5
+## 2     2  30.9
+```
+
+施肥
+
+```r
+d.soil %&gt;% select(-soil) %&gt;% group_by(ft) %&gt;% summarise(plant=mean(plant))
+```
+
+```
+## # A tibble: 2 x 2
+##      ft plant
+##   &lt;int&gt; &lt;dbl&gt;
+## 1     1  29.0
+## 2     2  35.4
+```
+]
+
+.pull-right[
+ANOVA結果
+
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+]
+
+
+---
+### 検算：総平均
+
+.pull-left[
+
+```r
+(mean.Y &lt;- d.soil %&gt;% 
+   summarise(mean.Y=mean(plant)) %&gt;% 
+   .[["mean.Y"]])
+```
+
+```
+## [1] 32.21
+```
+]
+
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+---
+### 総平方和と自由度
+.pull-left[
+
+
+```r
+(SS.Y &lt;- d.soil %&gt;% 
+   mutate(x = (plant - mean.Y)**2) %&gt;% 
+   summarise(SS.Y = sum(x)) %&gt;% 
+   .[["SS.Y"]])
+```
+
+```
+## [1] 1035.956
+```
+
+```r
+(df.Y &lt;- 2*2*10-1)
+```
+
+```
+## [1] 39
+```
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+---
+### 総グループ間平方和（SS.among）と総グループ間自由度（df.among）
+.pull-left[
+
+
+```r
+(SS.among &lt;- d.soil %&gt;% 
+   group_by(soil, ft) %&gt;% 
+   summarise(x = mean(plant), n = n()) %&gt;% 
+   mutate(x = n * (x - mean.Y)**2) %&gt;% 
+   ungroup() %&gt;% 
+   summarise(SS.among = sum(x)) %&gt;% 
+   .[["SS.among"]])
+```
+
+```
+## [1] 636.586
+```
+
+```r
+(df.among &lt;- 2*2-1)
+```
+
+```
+## [1] 3
+```
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+---
+### 検算：土壌効果の平方和（SS.soil）と自由度（df.soil）
+.pull-left[
+
+
+```r
+(SS.soil &lt;- d.soil %&gt;% 
+   group_by(soil) %&gt;% 
+   summarise(x = mean(plant), n = n()) %&gt;% 
+   mutate(x = n * (x - mean.Y)**2) %&gt;% 
+   summarise(SS.soil = sum(x)) %&gt;% 
+   .[["SS.soil"]])
+```
+
+```
+## [1] 71.289
+```
+
+```r
+(df.soil &lt;- 2 - 1)
+```
+
+```
+## [1] 1
+```
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+
+---
+### 検算：施肥効果の平方和（SS.ft）と自由度（df.ft）
+.pull-left[
+
+```r
+(SS.ft &lt;- d.soil %&gt;% 
+  group_by(ft) %&gt;%
+  summarise(x = mean(plant), n = n()) %&gt;% 
+  mutate(x = n * (x - mean.Y)**2) %&gt;% 
+  summarise(SS.ft = sum(x)) %&gt;% 
+  .[["SS.ft"]])
+```
+
+```
+## [1] 404.496
+```
+
+```r
+(df.ft &lt;- 2 - 1)
+```
+
+```
+## [1] 1
+```
+
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+---
+### 交互作用の平方和（SS.inter）と自由度（df.inter）
+
+.pull-left[
+
+
+```r
+(SS.inter &lt;- SS.among - SS.soil - SS.ft)
+```
+
+```
+## [1] 160.801
+```
+
+```r
+(df.inter &lt;- (2 - 1) * (2 - 1))
+```
+
+```
+## [1] 1
+```
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+---
+### 残差平方和（SS.within）と自由度（df.within）
+
+.pull-left[
+
+
+```r
+(SS.within &lt;- d.soil %&gt;% 
+   group_by(soil, ft) %&gt;% 
+   mutate(x = (plant - mean(plant))**2 ) %&gt;% 
+   summarise(x = sum(x)) %&gt;% ungroup() %&gt;% 
+   summarise(SS.within = sum(x)) %&gt;% 
+   .[["SS.within"]])
+```
+
+```
+## [1] 399.37
+```
+
+```r
+(df.within &lt;- 4 * (10 - 1))
+```
+
+```
+## [1] 36
+```
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+---
+### 検算：F値
+.pull-left[
+MS
+
+```r
+MS.soil &lt;- SS.soil / df.soil
+MS.ft &lt;- SS.ft / df.ft
+MS.inter &lt;- SS.inter / df.inter
+MS.within &lt;- SS.within / df.within
+```
+
+F値
+
+```r
+(Fval.soil &lt;- MS.soil / MS.within)
+```
+
+```
+## [1] 6.426131
+```
+
+```r
+(Fval.ft &lt;- MS.ft / MS.within)
+```
+
+```
+## [1] 36.46207
+```
+
+```r
+(Fval.inter &lt;- MS.inter / MS.within)
+```
+
+```
+## [1] 14.49492
+```
+
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+---
+### 検算：p値
+.pull-left[
+
+
+```r
+# soil
+1 - pf(Fval.soil, df.soil, df.within)
+```
+
+```
+## [1] 0.01573349
+```
+
+```r
+# ft
+1 - pf(Fval.ft, df.ft, df.within)
+```
+
+```
+## [1] 6.175847e-07
+```
+
+```r
+# interaction
+1 - pf(Fval.inter, df.inter, df.within)
+```
+
+```
+## [1] 0.0005270302
+```
+
+]
+.pull-right[
+
+```r
+d.soil %&gt;% 
+  aov(plant ~ soil + ft + soil:ft, data = .) %&gt;% 
+  summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## soil         1   71.3    71.3   6.426 0.015733 *  
+## ft           1  404.5   404.5  36.462 6.18e-07 ***
+## soil:ft      1  160.8   160.8  14.495 0.000527 ***
+## Residuals   36  399.4    11.1                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+---
+class: center, middle, inverse
+
+## 7.4 線形混合モデル: 固定要因とランダム変量要因を取り込む
+
+---
+### 固定要因とランダム変量要因
+
+* 固定要因：土壌の種類，施肥効果など
+* ランダム変量要因：「ブロック」
+
+完全独立反復と疑似反復
+
+* 乱塊（完全ランダムブロック）：各処理がブロックごとに1回
+* 直交（完全ランダム要因）：各処理がブロックごとに複数回
+* 入れ子（ネスト）：処理ごとにブロックを設ける，ブロック内で処理は複数回
+
+---
+### 直交の例：豚の体重
+
+.pull-left[
+
+* 豚舎3つ（`block`）
+* 処理（`treat`）あり（f）なし（t）
+
+
+```r
+d.pig &lt;- read_csv("../../samplecode/Rで学ぶ統計学入門図版作成用（改訂版）/付録/table7-5.csv")
+head(d.pig)
+```
+
+```
+## # A tibble: 6 x 4
+##   number    wt treat block
+##    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;
+## 1      1   125 f         1
+## 2      2   124 f         1
+## 3      3   127 f         1
+## 4      4   121 f         1
+## 5      5   127 f         1
+## 6      6   123 f         1
+```
+]
+
+
+.pull-right[
+
+
+```r
+pig.mean &lt;- d.pig$wt %&gt;% mean()
+pig.mean.f &lt;- filter(d.pig, treat=="f")$wt %&gt;% mean()
+pig.mean.c &lt;- filter(d.pig, treat=="c")$wt %&gt;% mean()
+d.pig %&gt;% ggplot(aes(x = number, y = wt, colour=treat)) + geom_point() + 
+    geom_hline(yintercept = pig.mean.c, linetype=2, colour=2) + 
+    geom_hline(yintercept = pig.mean.f, linetype=2, colour=4) + 
+    geom_hline(yintercept = pig.mean, linetype=2)
+```
+
+![](Chap07-slide_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+]
+
+---
+### ANOVA の実行
+.pull-left[
+* ランダム変量要因：`Error` 項
+* Nested-ANOVA という
+
+
+Error: block
+* Residual: 主効果としてのブロック（豚舎）
+
+Error: block:treat
+* treat: 主効果としての処理（餌）
+* Residuals: ブロックと餌の交互作用
+
+Error: Within
+* Residuals: 個体間のばらつき
+
+]
+.pull-right[
+
+```r
+d.pig %&gt;% 
+  mutate(block=as.factor(block), treat=as.factor(treat)) %&gt;% 
+  aov(wt ~ treat + Error(block / treat), data=.) %&gt;% 
+  summary()
+```
+
+```
+## 
+## Error: block
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Residuals  2  4.056   2.028               
+## 
+## Error: block:treat
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## treat      1 1653.8  1653.8   106.5 0.00926 **
+## Residuals  2   31.1    15.5                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Error: Within
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Residuals 30  166.3   5.544
+```
+
+]
+---
+## まとめ
+
+* 二元配置分散分析
+    * 固定要因と固定要因
+    * 固定要因とランダム要因
+* 線形混合モデル
+    * ランダム要因をくみこむ
+    * 疑似反復に注意
+
+---
+### 演習問題7.2
+
+.pull-left[
+
+
+```r
+d.mouse &lt;- data_frame(
+    wt = c(55.4, 49.7, 52.1, 49.5, 53.2, 51.4, 54.3, 
+          47.2, 49.4, 51.3, 54.5, 48.1, 50.8, 52.7,
+          50.5, 48.2, 48.4, 52.1, 51.8, 49.7, 49.2, 
+          47.3, 46.2, 48.8, 50.1, 48.2, 47.0, 46.5), 
+    feed = c(rep("A", 7*2), rep("B", 7*2)), 
+    gender = c(rep("M", 7), rep("F", 7), rep("M", 7), rep("F", 7))
+)
+head(d.mouse)
+```
+
+```
+## # A tibble: 6 x 3
+##      wt feed  gender
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1  55.4 A     M     
+## 2  49.7 A     M     
+## 3  52.1 A     M     
+## 4  49.5 A     M     
+## 5  53.2 A     M     
+## 6  51.4 A     M
+```
+]
+
+.pull-right[
+
+```r
+d.mouse %&gt;% 
+  mutate(feed=factor(feed), gender=factor(gender)) %&gt;% 
+  group_by(feed, gender) %&gt;% 
+  summarise(wt=mean(wt)) %&gt;% 
+  ggplot(aes(x=feed, y=wt, group=gender, colour=gender)) + 
+  geom_line() + geom_point()
+```
+
+![](Chap07-slide_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+]
+---
+### 演習問題7.2
+
+```r
+d.mouse %&gt;% aov(wt ~ feed + gender + feed:gender, data=.) %&gt;% summary()
+```
+
+```
+##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## feed         1  45.26   45.26  11.409 0.00249 **
+## gender       1  26.81   26.81   6.759 0.01571 * 
+## feed:gender  1   0.63    0.63   0.159 0.69378   
+## Residuals   24  95.21    3.97                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+---
+### 演習問題7.3
+.pull-left[
+
+
+```r
+d.exam &lt;- data_frame(
+    indiv = c(1:36), 
+    score = c(78, 72, 81, 71, 74, 72, 
+              85, 83, 79, 77, 75, 77, 
+              83, 86, 74, 76, 73, 71, 
+              66, 71, 72, 60, 58, 55, 
+              58, 49, 62, 69, 70, 63, 
+              65, 59, 54, 67, 66, 67), 
+    juku = c(rep(1, 18), rep(2, 18)), 
+    class = rep(c(rep("A", 6), rep("B", 6), rep("C", 6)), 2)
+)
+head(d.exam)
+```
+
+```
+## # A tibble: 6 x 4
+##   indiv score  juku class
+##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1   78.    1. A    
+## 2     2   72.    1. A    
+## 3     3   81.    1. A    
+## 4     4   71.    1. A    
+## 5     5   74.    1. A    
+## 6     6   72.    1. A
+```
+]
+
+.pull-right[
+
+```r
+d.exam %&gt;% mutate(juku=as.factor(juku), class=as.factor(class)) %&gt;% 
+  ggplot(aes(x = indiv, y = score, shape=juku, colour=class)) + 
+  geom_point()
+```
+
+![](Chap07-slide_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+
+]
+---
+### 演習問題7.3
+
+```r
+d.exam %&gt;% mutate(juku=factor(juku), class=factor(class)) %&gt;% 
+  aov(score ~ juku + Error(class / juku), data=.) %&gt;% 
+  summary()
+```
+
+```
+## 
+## Error: class
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Residuals  2  12.39   6.194               
+## 
+## Error: class:juku
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## juku       1 1820.4  1820.4   57.44  0.017 *
+## Residuals  2   63.4    31.7                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Error: Within
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Residuals 30   1024   34.12
+```
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
