@@ -32,6 +32,17 @@ library(readr)
 library(gridExtra)
 ```
 
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
 ---
 class: center, middle, inverse
 ## 多元配置の分散分析の必要性
@@ -108,7 +119,7 @@ d.room %&gt;% mutate(student=as.factor(student), size=as.factor(size)) %&gt;%
   geom_jitter(aes(colour=student), width=0.2)
 ```
 
-![](Chap07-slide_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -172,7 +183,7 @@ gp2 &lt;- d.room %&gt;%
 ]
 
 .pull-right[
-![](Chap07-slide_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -232,7 +243,7 @@ d.soil %&gt;% mutate(soil=as.factor(soil), ft=as.factor(ft)) %&gt;%
   geom_jitter(aes(colour=ft), width = 0.2)
 ```
 
-![](Chap07-slide_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ]
 ---
@@ -271,7 +282,7 @@ d.soil %&gt;%
   geom_line() + geom_point()
 ```
 
-![](Chap07-slide_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -845,7 +856,7 @@ d.pig %&gt;% ggplot(aes(x = number, y = wt, colour=treat)) + geom_point() +
     geom_hline(yintercept = pig.mean, linetype=2)
 ```
 
-![](Chap07-slide_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -946,7 +957,7 @@ d.mouse %&gt;%
   geom_line() + geom_point()
 ```
 
-![](Chap07-slide_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 ]
 ---
 ### 演習問題7.2
@@ -1006,7 +1017,7 @@ d.exam %&gt;% mutate(juku=as.factor(juku), class=as.factor(class)) %&gt;%
   geom_point()
 ```
 
-![](Chap07-slide_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](Chap07-slide_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 
 ]
 ---
